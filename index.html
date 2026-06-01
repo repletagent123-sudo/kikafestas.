@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kika Festas Elegance - Matriz Comercial</title>
+    <title>Kika Festas Elegance - Confeitaria Fina</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
         :root {
             --cor-perola: #F5F2EB;
             --cor-marrom: #2B1B11;
@@ -27,13 +27,48 @@
         .secao-pagina.ativa {
             display: block;
         }
+        .sub-container {
+            display: none;
+        }
+        .sub-container.ativa {
+            display: block;
+        }
+        .sub-btn.ativo {
+            background-color: #2B1B11;
+            color: white;
+            border-color: #2B1B11;
+        }
+        .card-produto {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-produto:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(43, 27, 17, 0.15);
+        }
+        .img-produto {
+            transition: transform 0.5s ease;
+        }
+        .card-produto:hover .img-produto {
+            transform: scale(1.05);
+        }
+        .galeria-item {
+            overflow: hidden;
+            border-radius: 0.75rem;
+        }
+        .galeria-item img {
+            transition: transform 0.5s ease;
+        }
+        .galeria-item:hover img {
+            transform: scale(1.08);
+        }
     </style>
+<base target="_blank">
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
     <header class="bg-[#2B1B11] text-white p-4 shadow-xl border-b-2 border-[#C5A880] sticky top-0 z-40">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            
+
             <div class="flex items-center space-x-3 cursor-pointer" onclick="mudarPagina('principal')">
                 <div class="w-12 h-12 rounded-full border-2 border-[#C5A880] flex items-center justify-center bg-[#2B1B11] shadow-md">
                     <span class="font-elegante text-2xl font-bold text-[#C5A880] tracking-tighter">K</span>
@@ -44,29 +79,152 @@
                     <span class="text-[9px] uppercase tracking-widest text-[#C5A880] font-bold mt-1">CONFEITARIA ELEGANCE</span>
                 </div>
             </div>
-            
+
             <nav class="flex flex-wrap gap-2 text-xs font-bold">
-                <button onclick="mudarPagina('principal')" id="btn-principal" class="bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer">1. Início & Orçamento</button>
+                <button onclick="mudarPagina('principal')" id="btn-principal" class="bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer hover:opacity-90">1. Cardápio & Orçamento</button>
                 <button onclick="mudarPagina('galeria')" id="btn-galeria" class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer">2. Galeria de Fotos</button>
-                <button onclick="mudarPagina('depoimentos')" id="btn-depoimentos" class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer">3. Depoimentos dos Clientes</button>
+                <button onclick="mudarPagina('depoimentos')" id="btn-depoimentos" class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer">3. Depoimentos</button>
                 <button onclick="mudarPagina('login-admin')" id="btn-aba-admin" class="bg-black/30 text-white/80 hover:bg-black/50 px-4 py-2 rounded transition ml-4 cursor-pointer">Empresa (Admin)</button>
-                <button onclick="fazerLogout()" id="btn-logout" class="hidden bg-red-800 text-white px-3 py-2 rounded shadow transition cursor-pointer">Sair</button>
+                <button onclick="fazerLogout()" id="btn-logout" class="hidden bg-red-800 text-white px-3 py-2 rounded shadow transition cursor-pointer hover:bg-red-700">Sair</button>
             </nav>
         </div>
     </header>
 
     <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
 
+        <!-- PÁGINA 1: CARDÁPIO E ORÇAMENTO -->
         <section id="pag-principal" class="secao-pagina ativa space-y-8">
             <div class="text-center max-w-2xl mx-auto my-4">
                 <h1 class="font-elegante text-4xl md:text-5xl font-bold text-[#2B1B11]">Cardápio Exclusivo de Doces</h1>
                 <p class="text-gray-600 text-sm mt-2">Selecione as opções finas abaixo para simular os valores do seu evento.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
-                    <div class="h-56 bg-gray-100">
-                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Noiva Elegance" class="w-full h-full object-cover">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- ITEM 1: Cupcake sem recheio -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/14522725/pexels-photo-14522725.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake sem recheio" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake sem Recheio</h3>
+                        <p class="text-xs text-gray-500">Cupcake artesanal com cobertura de buttercream, perfeito para festas e eventos.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 4,50</span>
+                            <button onclick="adicionarItem('Cupcake sem Recheio', 4.50)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 2: Cupcake com recheio -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake com recheio" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake com Recheio</h3>
+                        <p class="text-xs text-gray-500">Cupcake recheado com brigadeiro gourmet, doce de leite ou Nutella.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 5,00</span>
+                            <button onclick="adicionarItem('Cupcake com Recheio', 5.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 3: Mini Pão de mel -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mini Pão de Mel" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Mini Pão de Mel</h3>
+                        <p class="text-xs text-gray-500">Delicioso pão de mel recheado com doce de leite. Pedido mínimo: 25 unidades.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 4,50</span>
+                            <button onclick="adicionarItem('Mini Pão de Mel', 4.50)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 4: Maçã do amor tradicional -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/6554679/pexels-photo-6554679.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor Tradicional" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor Tradicional</h3>
+                        <p class="text-xs text-gray-500">Maçã caramelizada na calda tradicional, crocante e deliciosa.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 7,00</span>
+                            <button onclick="adicionarItem('Maçã do Amor Tradicional', 7.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 5: Maçã do amor de chocolate -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/9623537/pexels-photo-9623537.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor de Chocolate" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor de Chocolate</h3>
+                        <p class="text-xs text-gray-500">Maçã do amor banhada em chocolate ao leite, branco ou colorido.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 10,00</span>
+                            <button onclick="adicionarItem('Maçã do Amor de Chocolate', 10.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 6: Bolo no palito com tag 3D -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/15550435/pexels-photo-15550435.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo no Palito com Tag 3D" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo no Palito com Tag 3D</h3>
+                        <p class="text-xs text-gray-500">Bolo no palito decorado com tag 3D personalizada, ideal para lembrancinhas.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 12,00</span>
+                            <button onclick="adicionarItem('Bolo no Palito com Tag 3D', 12.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 7: Quadro de chocolate -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/31164722/pexels-photo-31164722.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quadro de Chocolate" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Quadro de Chocolate</h3>
+                        <p class="text-xs text-gray-500">Quadro artístico de chocolate belga, perfeito para decoração e presente.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 10,00</span>
+                            <button onclick="adicionarItem('Quadro de Chocolate', 10.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 8: Cone trufado -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/29098336/pexels-photo-29098336.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cone Trufado" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cone Trufado</h3>
+                        <p class="text-xs text-gray-500">Cone crocante recheado com trufa de chocolate nobre e cobertura especial.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 8,00</span>
+                            <button onclick="adicionarItem('Cone Trufado', 8.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 9: Bolo de Noiva Premium (mantido) -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Noiva Premium" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo de Noiva Premium (Por Andar)</h3>
@@ -78,9 +236,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
-                    <div class="h-56 bg-gray-100">
-                        <img src="https://images.pexels.com/photos/3796310/pexels-photo-3796310.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Trufas Gourmet Finas" class="w-full h-full object-cover">
+                <!-- ITEM 10: Cento de Trufas & Camafeus (FOTO NOVA) -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cento de Trufas e Camafeus" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cento de Trufas & Camafeus</h3>
@@ -92,9 +251,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
-                    <div class="h-56 bg-gray-100">
-                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Macarons Finos" class="w-full h-full object-cover">
+                <!-- ITEM 11: Combo Macarons Franceses (mantido) -->
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Combo Macarons Franceses" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Combo Macarons Franceses (50 un)</h3>
@@ -105,6 +265,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="bg-white rounded-2xl p-6 shadow-md border border-[#C5A880]/30 max-w-xl mx-auto">
@@ -122,40 +283,71 @@
             </div>
         </section>
 
+        <!-- PÁGINA 2: GALERIA DE FOTOS -->
         <section id="pag-galeria" class="secao-pagina space-y-6">
             <div class="text-center max-w-xl mx-auto">
                 <h2 class="font-elegante text-3xl md:text-4xl font-bold text-[#2B1B11]">Galeria Kika Festas</h2>
                 <p class="text-xs text-gray-500 mt-1">Imagens reais dos nossos eventos, mesas decoradas e produções mais recentes.</p>
             </div>
 
-            <div id="grid-galeria-fotos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/2252311/pexels-photo-2252311.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/10134237/pexels-photo-10134237.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/10134244/pexels-photo-10134244.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/8089406/pexels-photo-8089406.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
+            <div id="grid-galeria-fotos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Foto 1: Mesa de doces casamento -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Casamento" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 2: Mesa luxo noite -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Luxo" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 3: Bolo branco ouro -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Branco com Ouro" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 4: Bolo aniversário flores -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Aniversário Flores" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 5: Bolo 3 andares casamento -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Casamento 3 Andares" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 6: Mesa doces variados -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Variados" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 7: Macarons coloridos -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Macarons Coloridos" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <!-- Foto 8: Cake pops -->
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cake Pops Elegantes" class="w-full h-56 object-cover rounded-lg">
+                </div>
             </div>
         </section>
 
+        <!-- PÁGINA 3: DEPOIMENTOS -->
         <section id="pag-depoimentos" class="secao-pagina space-y-6">
             <div class="text-center max-w-xl mx-auto">
                 <h2 class="font-elegante text-3xl md:text-4xl font-bold text-[#2B1B11]">Depoimentos e Avaliações</h2>
                 <p class="text-xs text-gray-500 mt-1">A opinião de quem confiou em nossa alta confeitaria para marcar momentos especiais.</p>
             </div>
 
-            <div id="lista-depoimentos-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div id="lista-depoimentos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">“</span>
+                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"As trufas e o camafeu foram o comentário de todos os convidados no meu casamento. Um trabalho impecável e de um sabor inesquecível!"</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira (Noiva Elegance)</div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">“</span>
+                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"O bolo decorado estava exatamente idêntico ao modelo que enviamos como referência. Érika é uma artista completa."</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Carlos Eduardo Guedes</div>
                 </div>
             </div>
         </section>
 
+        <!-- PÁGINA 4: LOGIN ADMIN -->
         <section id="pag-login-admin" class="secao-pagina py-8">
             <div class="max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#C5A880]/30">
                 <div class="bg-[#2B1B11] p-6 text-center border-b border-[#C5A880]">
@@ -171,7 +363,7 @@
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Senha Privada</label>
                         <input type="password" id="adm-senha" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#C5A880] bg-[#F5F2EB]/40 text-sm" placeholder="••••••••">
                     </div>
-                    <div id="erro-auth" class="text-red-600 text-xs font-bold hidden">Acesso negado.</div>
+                    <div id="erro-auth" class="text-red-600 text-xs font-bold hidden">Acesso negado. Verifique suas credenciais.</div>
                     <button type="submit" class="w-full bg-[#2B1B11] text-[#C5A880] font-bold p-3.5 rounded-lg border border-[#C5A880] shadow-md hover:bg-opacity-95 transition cursor-pointer">
                         Acessar Sistema Central
                     </button>
@@ -179,6 +371,7 @@
             </div>
         </section>
 
+        <!-- PÁGINA 5: DASHBOARD ADMIN -->
         <section id="pag-dashboard" class="secao-pagina space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 pb-4">
                 <div>
@@ -186,20 +379,21 @@
                     <p class="text-xs text-gray-500">Alimente o sistema, gerencie as páginas e visualize o estoque.</p>
                 </div>
                 <div class="flex flex-wrap gap-1 mt-3 sm:mt-0">
-                    <button onclick="mudarSubSecao('sub-estoque')" class="sub-btn bg-[#2B1B11] text-white text-xs px-3 py-2 rounded cursor-pointer">📦 Insumos / Estoque</button>
-                    <button onclick="mudarSubSecao('sub-gastos')" class="sub-btn bg-white text-[#2B1B11] border border-gray-300 text-xs px-3 py-2 rounded cursor-pointer">💰 Despesas</button>
-                    <button onclick="mudarSubSecao('sub-conteudo')" class="sub-btn bg-white text-[#2B1B11] border border-gray-300 text-xs px-3 py-2 rounded cursor-pointer">🎨 Atualizar Páginas</button>
+                    <button onclick="mudarSubSecao('sub-estoque')" id="sub-btn-estoque" class="sub-btn bg-[#2B1B11] text-white text-xs px-3 py-2 rounded cursor-pointer border border-[#2B1B11]">📦 Insumos / Estoque</button>
+                    <button onclick="mudarSubSecao('sub-gastos')" id="sub-btn-gastos" class="sub-btn bg-white text-[#2B1B11] border border-gray-300 text-xs px-3 py-2 rounded cursor-pointer hover:bg-gray-50">💰 Despesas</button>
+                    <button onclick="mudarSubSecao('sub-conteudo')" id="sub-btn-conteudo" class="sub-btn bg-white text-[#2B1B11] border border-gray-300 text-xs px-3 py-2 rounded cursor-pointer hover:bg-gray-50">🎨 Atualizar Páginas</button>
                 </div>
             </div>
 
-            <div id="sub-estoque" class="sub-container space-y-4">
+            <!-- SUB: ESTOQUE -->
+            <div id="sub-estoque" class="sub-container ativa space-y-4">
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <h4 class="text-xs font-bold uppercase text-gray-700 mb-2">Entrada de Insumo</h4>
                     <form onsubmit="cadastrarEstoque(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-2 items-end">
-                        <input type="text" id="insumo-nome" placeholder="Nome" required class="p-2 border rounded text-xs">
-                        <input type="number" id="insumo-qtd" placeholder="Qtd" required class="p-2 border rounded text-xs">
-                        <input type="number" id="insumo-min" placeholder="Alerta Mínimo" required class="p-2 border rounded text-xs">
-                        <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer">Adicionar</button>
+                        <input type="text" id="insumo-nome" placeholder="Nome do Insumo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <input type="number" id="insumo-qtd" placeholder="Quantidade" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <input type="number" id="insumo-min" placeholder="Alerta Mínimo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer hover:bg-opacity-90">Adicionar</button>
                     </form>
                 </div>
                 <div class="bg-white rounded-xl shadow overflow-hidden border border-gray-200">
@@ -212,13 +406,14 @@
                 </div>
             </div>
 
-            <div id="sub-gastos" class="sub-container hidden space-y-4">
+            <!-- SUB: GASTOS -->
+            <div id="sub-gastos" class="sub-container space-y-4">
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <h4 class="text-xs font-bold uppercase text-gray-700 mb-2">Lançar Novo Custo</h4>
                     <form onsubmit="cadastrarGasto(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-end">
-                        <input type="text" id="gasto-desc" placeholder="Descrição" required class="p-2 border rounded text-xs">
-                        <input type="number" step="0.01" id="gasto-valor" placeholder="Valor (R$)" required class="p-2 border rounded text-xs">
-                        <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer">Salvar</button>
+                        <input type="text" id="gasto-desc" placeholder="Descrição do Custo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <input type="number" step="0.01" id="gasto-valor" placeholder="Valor (R$)" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer hover:bg-opacity-90">Salvar</button>
                     </form>
                 </div>
                 <div class="bg-white rounded-xl shadow overflow-hidden border border-gray-200">
@@ -231,20 +426,21 @@
                 </div>
             </div>
 
-            <div id="sub-conteudo" class="sub-container hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- SUB: CONTEÚDO -->
+            <div id="sub-conteudo" class="sub-container grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
                     <h3 class="font-bold text-sm text-[#2B1B11] border-b pb-2">Alimentar Página 2: Injetar Foto na Galeria</h3>
                     <form onsubmit="inserirFotoGaleria(event)" class="space-y-2">
-                        <input type="url" id="galeria-url" required class="w-full p-2 border rounded text-xs" placeholder="https://images.pexels.com/...">
-                        <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer">Injetar Foto</button>
+                        <input type="url" id="galeria-url" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]" placeholder="https://images.pexels.com/...">
+                        <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer hover:bg-opacity-90">Injetar Foto</button>
                     </form>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
                     <h3 class="font-bold text-sm text-[#2B1B11] border-b pb-2">Alimentar Página 3: Postar Depoimento</h3>
                     <form onsubmit="inserirDepoimento(event)" class="space-y-2">
-                        <input type="text" id="dep-nome" placeholder="Nome do Cliente" required class="w-full p-2 border rounded text-xs">
-                        <textarea id="dep-texto" placeholder="Texto..." required class="w-full p-2 border rounded text-xs h-20"></textarea>
-                        <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer">Publicar Depoimento</button>
+                        <input type="text" id="dep-nome" placeholder="Nome do Cliente" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <textarea id="dep-texto" placeholder="Texto do depoimento..." required class="w-full p-2 border rounded text-xs h-20 focus:outline-none focus:border-[#C5A880]"></textarea>
+                        <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer hover:bg-opacity-90">Publicar Depoimento</button>
                     </form>
                 </div>
             </div>
@@ -253,7 +449,7 @@
     </main>
 
     <footer class="bg-[#2B1B11] text-white text-center p-4 border-t border-[#C5A880] text-xs opacity-90 mt-auto">
-        <p>&copy; 2026 Kika Festas. Estrutura SaaS Base Multi-páginas Replicável.</p>
+        <p>&copy; 2026 Kika Festas. Confeitaria Elegance - Todos os direitos reservados.</p>
     </footer>
 
     <a href="https://wa.me/5511965126370" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center group animate-bounce" style="animation-duration: 4s;">
@@ -261,6 +457,7 @@
     </a>
 
     <script>
+        // Inicialização do LocalStorage
         if (!localStorage.getItem('db_estoque')) {
             localStorage.setItem('db_estoque', JSON.stringify([
                 { id: 1, nome: "Chocolate Callebaut Belga (kg)", qtd: 12, min: 4 },
@@ -270,8 +467,12 @@
         if (!localStorage.getItem('db_gastos')) {
             localStorage.setItem('db_gastos', JSON.stringify([{ id: 1, desc: "Formas de Acetato Luxo", valor: 120.00 }]));
         }
-        if (!localStorage.getItem('db_galeria')) { localStorage.setItem('db_galeria', JSON.stringify([])); }
-        if (!localStorage.getItem('db_depoimentos')) { localStorage.setItem('db_depoimentos', JSON.stringify([])); }
+        if (!localStorage.getItem('db_galeria')) { 
+            localStorage.setItem('db_galeria', JSON.stringify([])); 
+        }
+        if (!localStorage.getItem('db_depoimentos')) { 
+            localStorage.setItem('db_depoimentos', JSON.stringify([])); 
+        }
 
         let simulacaoCarrinho = [];
 
@@ -280,24 +481,39 @@
                 mudarPagina('login-admin');
                 return;
             }
+
+            // Esconde todas as seções
             document.querySelectorAll('.secao-pagina').forEach(p => p.classList.remove('ativa'));
+            // Mostra a seção selecionada
             document.getElementById('pag-' + idPagina).classList.add('ativa');
-            
+
+            // Atualiza botões de navegação
             ['principal', 'galeria', 'depoimentos'].forEach(aba => {
                 const btn = document.getElementById('btn-' + aba);
                 if(btn) {
                     if(aba === idPagina) {
-                        btn.className = "bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer";
+                        btn.className = "bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer hover:opacity-90";
                     } else {
                         btn.className = "bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer";
                     }
                 }
             });
+
+            // Se for dashboard, atualiza dados
+            if (idPagina === 'dashboard') {
+                atualizarPainelDados();
+            }
+
+            // Scroll para o topo
+            window.scrollTo(0, 0);
         }
 
         function autenticarAdmin(event) {
             event.preventDefault();
-            if (document.getElementById('adm-email').value === 'admin@kikafestas.com' && document.getElementById('adm-senha').value === 'admin123') {
+            const email = document.getElementById('adm-email').value;
+            const senha = document.getElementById('adm-senha').value;
+
+            if (email === 'admin@kikafestas.com' && senha === 'admin123') {
                 sessionStorage.setItem('logado_admin', 'true');
                 document.getElementById('erro-auth').classList.add('hidden');
                 document.getElementById('btn-logout').classList.remove('hidden');
@@ -317,8 +533,11 @@
         }
 
         function mudarSubSecao(idSub) {
-            document.querySelectorAll('.sub-container').forEach(c => c.classList.add('hidden'));
-            document.getElementById(idSub).classList.remove('hidden');
+            document.querySelectorAll('.sub-container').forEach(c => c.classList.remove('ativa'));
+            document.getElementById(idSub).classList.add('ativa');
+
+            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('ativo'));
+            document.getElementById('sub-btn-' + idSub.replace('sub-', '')).classList.add('ativo');
         }
 
         function adicionarItem(nome, preco) {
@@ -334,132 +553,209 @@
         function atualizarHTMLCarrinho() {
             const caixa = document.getElementById('lista-simulacao');
             const totalLabel = document.getElementById('valor-total-simulacao');
+
             if (simulacaoCarrinho.length === 0) {
                 caixa.innerHTML = `<p class="text-gray-400 text-center py-4">Escolha os produtos acima para iniciar.</p>`;
                 totalLabel.innerText = "R$ 0,00";
                 return;
             }
-            let html = ''; let b = 0;
+
+            let html = ''; 
+            let total = 0;
             simulacaoCarrinho.forEach((item, idx) => {
-                b += item.preco;
+                total += item.preco;
                 html += `<div class="flex justify-between items-center py-2">
                     <div><span class="font-semibold block">${item.nome}</span><span class="text-xs text-gray-400">R$ ${item.preco.toFixed(2)}</span></div>
-                    <button onclick="removerItem(${idx})" class="text-red-700 text-xs hover:underline">Remover</button>
+                    <button onclick="removerItem(${idx})" class="text-red-700 text-xs hover:underline cursor-pointer">Remover</button>
                 </div>`;
             });
-            caixa.innerHTML = html; totalLabel.innerText = `R$ ${b.toFixed(2)}`;
+            caixa.innerHTML = html; 
+            totalLabel.innerText = `R$ ${total.toFixed(2)}`;
         }
 
         function enviarParaWhatsApp() {
-            if (simulacaoCarrinho.length === 0) return alert("Adicione produtos primeiro!");
-            let msg = `Olá Érika, realizei uma simulação pelo site Kika Festas:\n\n`;
-            let t = 0; simulacaoCarrinho.forEach(i => { msg += `- ${i.nome}: R$ ${i.preco.toFixed(2)}\n`; t += i.preco; });
-            msg += `\n*Total Estimado: R$ ${t.toFixed(2)}*`;
+            if (simulacaoCarrinho.length === 0) {
+                alert("Adicione produtos primeiro!");
+                return;
+            }
+
+            let msg = `Olá Érika, realizei uma simulação pelo site Kika Festas:
+
+`;
+            let total = 0; 
+            simulacaoCarrinho.forEach(i => { 
+                msg += `- ${i.nome}: R$ ${i.preco.toFixed(2)}
+`; 
+                total += i.preco; 
+            });
+            msg += `
+*Total Estimado: R$ ${total.toFixed(2)}*`;
             window.open(`https://wa.me/5511965126370?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function carregarPaginasDinamicas() {
             const fotosLocais = JSON.parse(localStorage.getItem('db_galeria')) || [];
             const containerGaleria = document.getElementById('grid-galeria-fotos');
+
+            // Fotos base da galeria
             let htmlGaleria = `
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/2252311/pexels-photo-2252311.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/10134237/pexels-photo-10134237.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/10134244/pexels-photo-10134244.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
-                <div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="https://images.pexels.com/photos/8089406/pexels-photo-8089406.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-44 object-cover rounded-lg"></div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Casamento" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Luxo" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Branco com Ouro" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Aniversário Flores" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Casamento 3 Andares" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Variados" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Macarons Coloridos" class="w-full h-56 object-cover rounded-lg">
+                </div>
+                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cake Pops Elegantes" class="w-full h-56 object-cover rounded-lg">
+                </div>
             `;
-            fotosLocais.forEach(f => { htmlGaleria += `<div class="bg-white p-2 rounded-xl shadow border border-gray-100"><img src="${f.url}" class="w-full h-44 object-cover rounded-lg"></div>`; });
+
+            // Adiciona fotos do localStorage
+            fotosLocais.forEach(f => { 
+                htmlGaleria += `<div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
+                    <img src="${f.url}" alt="Foto da Galeria" class="w-full h-56 object-cover rounded-lg">
+                </div>`; 
+            });
+
             containerGaleria.innerHTML = htmlGaleria;
 
             const depsLocais = JSON.parse(localStorage.getItem('db_depoimentos')) || [];
             const containerDeps = document.getElementById('lista-depoimentos-container');
+
             let htmlDeps = `
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">“</span>
+                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"As trufas e o camafeu foram o comentário de todos os convidados no meu casamento. Um trabalho impecável e de um sabor inesquecível!"</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira</div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">“</span>
+                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"O bolo decorado estava exatamente idêntico ao modelo que enviamos como referência."</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Carlos Eduardo Guedes</div>
                 </div>
             `;
+
             depsLocais.forEach(d => {
                 htmlDeps += `<div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">“</span>
+                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"${d.texto}"</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— ${d.nome}</div>
                 </div>`;
             });
+
             containerDeps.innerHTML = htmlDeps;
         }
 
         function atualizarPainelDados() {
             const estoque = JSON.parse(localStorage.getItem('db_estoque')) || [];
             let htmlEstoque = '';
+
             estoque.forEach(i => {
                 const alerta = i.qtd <= i.min;
                 htmlEstoque += `<tr>
                     <td class="p-3 font-semibold text-gray-700">${i.nome}</td>
                     <td class="p-3 font-bold">${i.qtd} un</td>
                     <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${alerta?'bg-red-100 text-red-700':'bg-green-100 text-green-700'}">${alerta?'Baixo':'Ok'}</span></td>
-                    <td class="p-3 text-right"><button onclick="removerEstoque(${i.id})" class="text-red-700 font-bold hover:underline">Remover</button></td>
+                    <td class="p-3 text-right"><button onclick="removerEstoque(${i.id})" class="text-red-700 font-bold hover:underline cursor-pointer">Remover</button></td>
                 </tr>`;
             });
+
             document.getElementById('corpo-tabela-estoque').innerHTML = htmlEstoque;
 
             const gastos = JSON.parse(localStorage.getItem('db_gastos')) || [];
             let htmlGastos = '';
+
             gastos.forEach(g => {
                 htmlGastos += `<tr>
                     <td class="p-3 font-medium text-gray-700">${g.desc}</td>
                     <td class="p-3 font-bold text-red-700">R$ ${g.valor.toFixed(2)}</td>
-                    <td class="p-3 text-right"><button onclick="removerGasto(${g.id})" class="text-red-700 font-bold hover:underline">Deletar</button></td>
+                    <td class="p-3 text-right"><button onclick="removerGasto(${g.id})" class="text-red-700 font-bold hover:underline cursor-pointer">Deletar</button></td>
                 </tr>`;
             });
+
             document.getElementById('corpo-tabela-gastos').innerHTML = htmlGastos;
             carregarPaginasDinamicas();
         }
 
         function cadastrarEstoque(e) {
             e.preventDefault();
-            let arr = JSON.parse(localStorage.getItem('db_estoque'));
-            arr.push({ id: Date.now(), nome: document.getElementById('insumo-nome').value, qtd: parseInt(document.getElementById('insumo-qtd').value), min: parseInt(document.getElementById('insumo-min').value) });
-            localStorage.setItem('db_estoque', JSON.stringify(arr)); e.target.reset(); atualizarPainelDados();
+            let arr = JSON.parse(localStorage.getItem('db_estoque')) || [];
+            arr.push({ 
+                id: Date.now(), 
+                nome: document.getElementById('insumo-nome').value, 
+                qtd: parseInt(document.getElementById('insumo-qtd').value), 
+                min: parseInt(document.getElementById('insumo-min').value) 
+            });
+            localStorage.setItem('db_estoque', JSON.stringify(arr)); 
+            e.target.reset(); 
+            atualizarPainelDados();
         }
 
         function removerEstoque(id) {
-            let arr = JSON.parse(localStorage.getItem('db_estoque'));
-            localStorage.setItem('db_estoque', JSON.stringify(arr.filter(x => x.id !== id))); atualizarPainelDados();
+            let arr = JSON.parse(localStorage.getItem('db_estoque')) || [];
+            localStorage.setItem('db_estoque', JSON.stringify(arr.filter(x => x.id !== id))); 
+            atualizarPainelDados();
         }
 
         function cadastrarGasto(e) {
             e.preventDefault();
-            let arr = JSON.parse(localStorage.getItem('db_gastos'));
-            arr.push({ id: Date.now(), desc: document.getElementById('gasto-desc').value, valor: parseFloat(document.getElementById('gasto-valor').value) });
-            localStorage.setItem('db_gastos', JSON.stringify(arr)); e.target.reset(); atualizarPainelDados();
+            let arr = JSON.parse(localStorage.getItem('db_gastos')) || [];
+            arr.push({ 
+                id: Date.now(), 
+                desc: document.getElementById('gasto-desc').value, 
+                valor: parseFloat(document.getElementById('gasto-valor').value) 
+            });
+            localStorage.setItem('db_gastos', JSON.stringify(arr)); 
+            e.target.reset(); 
+            atualizarPainelDados();
         }
 
         function removerGasto(id) {
-            let arr = JSON.parse(localStorage.getItem('db_gastos'));
-            localStorage.setItem('db_gastos', JSON.stringify(arr.filter(x => x.id !== id))); atualizarPainelDados();
+            let arr = JSON.parse(localStorage.getItem('db_gastos')) || [];
+            localStorage.setItem('db_gastos', JSON.stringify(arr.filter(x => x.id !== id))); 
+            atualizarPainelDados();
         }
 
         function inserirFotoGaleria(e) {
             e.preventDefault();
             let arr = JSON.parse(localStorage.getItem('db_galeria')) || [];
             arr.push({ url: document.getElementById('galeria-url').value });
-            localStorage.setItem('db_galeria', JSON.stringify(arr)); e.target.reset(); alert("Foto adicionada!"); atualizarPainelDados();
+            localStorage.setItem('db_galeria', JSON.stringify(arr)); 
+            e.target.reset(); 
+            alert("Foto adicionada com sucesso!"); 
+            atualizarPainelDados();
         }
 
         function inserirDepoimento(e) {
             e.preventDefault();
             let arr = JSON.parse(localStorage.getItem('db_depoimentos')) || [];
-            arr.push({ nome: document.getElementById('dep-nome').value, texto: document.getElementById('dep-texto').value });
-            localStorage.setItem('db_depoimentos', JSON.stringify(arr)); e.target.reset(); alert("Depoimento publicado!"); atualizarPainelDados();
+            arr.push({ 
+                nome: document.getElementById('dep-nome').value, 
+                texto: document.getElementById('dep-texto').value 
+            });
+            localStorage.setItem('db_depoimentos', JSON.stringify(arr)); 
+            e.target.reset(); 
+            alert("Depoimento publicado com sucesso!"); 
+            atualizarPainelDados();
         }
 
+        // Inicializa a página
         carregarPaginasDinamicas();
     </script>
 </body>
-</html>     
+</html>
