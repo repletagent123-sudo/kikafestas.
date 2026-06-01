@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kika Festas Elegance - Painel Micro SaaS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --cor-perola: #F5F2EB;
+            --cor-marrom: #2B1B11;
+            --cor-ouro: #C5A880;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cor-perola);
+            color: var(--cor-marrom);
+        }
+        .font-elegante {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Esconder seções inativas */
+        .secao-painel {
+            display: none;
+        }
+        .secao-painel.ativa {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="bg-[#2B1B11] text-white p-4 shadow-xl border-b-2 border-[#C5A880] sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navegar Para('home')">
+                <span class="font-elegante text-2xl md:text-3xl font-bold text-[#C5A880] tracking-wide">Kika Festas Elegance</span>
+                <span class="bg-[#C5A880] text-[#2B1B11] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">SaaS Base</span>
+            </div>
+            
+            <nav class="flex flex-wrap gap-2" id="nav-principal">
+                <button onclick="navegarPara('home')" class="bg-[#C5A880] text-[#2B1B11] text-xs font-bold px-4 py-2 rounded shadow hover:bg-opacity-90 transition cursor-pointer">Cardápio & Pedidos</button>
+                <button onclick="navegarPara('login-admin')" id="btn-aba-admin" class="bg-white/10 text-white hover:bg-white/20 text-xs font-bold px-4 py-2 rounded transition cursor-pointer border border-white/20">Painel Empresa (Admin)</button>
+                <button onclick="fazerLogout()" id="btn-logout" class="hidden bg-red-700 text-white text-xs font-bold px-4 py-2 rounded shadow hover:bg-red-600 transition cursor-pointer">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
+
+        <section id="tela-home" class="secao-painel ativa space-y-8">
+            <div class="text-center max-w-2xl mx-auto my-6">
+                <h1 class="font-elegante text-4xl md:text-5xl font-bold text-[#2B1B11]">Doces Finos & Alta Confeitaria</h1>
+                <p class="text-gray-600 text-sm mt-2">Escolha os itens abaixo para simular seu orçamento e montar sua festa ideal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
+                    <div class="h-52 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolo de Casamento" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo de Noiva Elegance (Por Andar)</h3>
+                        <p class="text-xs text-gray-500">Massa de amêndoas finas, recheio trufado gourmet e acabamento impecável em pasta americana.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 350,00</span>
+                            <button onclick="adicionarAoOrcamento('Bolo de Noiva Elegance', 350)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
+                    <div class="h-52 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Trufas Finas" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cento de Trufas & Camafeus</h3>
+                        <p class="text-xs text-gray-500">Doces artesanais decorados com folhas de ouro comestíveis e chocolate belga legítimo.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 280,00</span>
+                            <button onclick="adicionarAoOrcamento('Cento de Trufas & Camafeus', 280)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group hover:shadow-xl transition">
+                    <div class="h-52 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Macarons" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Combo Macarons Franceses (50 un)</h3>
+                        <p class="text-xs text-gray-500">Macarons crocantes por fora e macios por dentro, nos tons pastéis escolhidos para o evento.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#2B1B11]">R$ 190,00</span>
+                            <button onclick="adicionarAoOrcamento('Combo Macarons Franceses', 190)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-[#C5A880]/30 max-w-xl mx-auto">
+                <h3 class="font-elegante text-2xl font-bold mb-4 text-center">Seu Pedido / Simulador</h3>
+                <div id="itens-orcamento" class="space-y-2 text-sm divide-y divide-gray-100">
+                    <p class="text-gray-500 text-center py-4">Nenhum item selecionado ainda.</p>
+                </div>
+                <div class="border-t border-[#C5A880]/30 mt-4 pt-4 flex justify-between items-center font-bold text-lg">
+                    <span>Total Estimado:</span>
+                    <span id="total-orcamento">R$ 0,00</span>
+                </div>
+                <button onclick="enviarPedidoWhatsApp()" class="w-full bg-[#2B1B11] text-[#C5A880] font-bold p-3 rounded-xl mt-4 border border-[#C5A880] hover:bg-opacity-95 transition cursor-pointer">
+                    Enviar Proposta para Validação
+                </button>
+            </div>
+        </section>
+
+
+        <section id="tela-login-admin" class="secao-painel py-12">
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#C5A880]/30">
+                <div class="bg-[#2B1B11] p-6 text-center border-b border-[#C5A880]">
+                    <h2 class="font-elegante text-2xl font-bold text-[#C5A880]">Acesso Restrito - Empresa</h2>
+                    <p class="text-white/70 text-xs mt-1">Faça login para gerenciar estoque, clientes e finanças</p>
+                </div>
+                <form onsubmit="executarLoginAdmin(event)" class="p-6 space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">E-mail Corporativo</label>
+                        <input type="email" id="login-email" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#C5A880] bg-[#F5F2EB]/30 text-sm" placeholder="admin@kikafestas.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Senha de Segurança</label>
+                        <input type="password" id="login-senha" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#C5A880] bg-[#F5F2EB]/30 text-sm" placeholder="••••••••">
+                    </div>
+                    <div id="erro-login" class="text-red-600 text-xs font-bold hidden">Credenciais incorretas! Use admin@kikafestas.com e admin123</div>
+                    <button type="submit" class="w-full bg-[#2B1B11] text-[#C5A880] font-bold p-3 rounded-lg border border-[#C5A880] shadow-md hover:bg-opacity-95 transition cursor-pointer">
+                        Desbloquear Painel Central
+                    </button>
+                </form>
+            </div>
+        </section>
+
+
+        <section id="tela-dashboard-admin" class="secao-painel space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="font-elegante text-3xl font-bold text-[#2B1B11]">Painel Administrativo da Érika</h2>
+                    <p class="text-xs text-gray-500">Controle total do negócio, estoque e fluxo de caixa.</p>
+                </div>
+                <div class="flex gap-2 mt-4 sm:mt-0">
+                    <button onclick="mudarSubAba('sub-estoque')" class="aba-btn bg-[#2B1B11] text-white text-xs font-bold px-3 py-2 rounded">📦 Estoque</button>
+                    <button onclick="mudarSubAba('sub-gastos')" class="aba-btn bg-white text-[#2B1B11] border border-gray-300 text-xs font-bold px-3 py-2 rounded">💰 Gastos / Caixa</button>
+                    <button onclick="mudarSubAba('sub-clientes')" class="aba-btn bg-white text-[#2B1B11] border border-gray-300 text-xs font-bold px-3 py-2 rounded">👥 Clientes</button>
+                </div>
+            </div>
+
+            <div id="sub-estoque" class="sub-secao space-y-6">
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-700 mb-3">Cadastrar/Atualizar Item no Estoque Base</h3>
+                    <form onsubmit="adicionarItemEstoque(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Nome do Insumo/Produto</label>
+                            <input type="text" id="est-nome" required class="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#C5A880]" placeholder="Ex: Chocolate Callebaut kg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Qtd Atual</label>
+                            <input type="number" id="est-qtd" required class="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#C5A880]" placeholder="10">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Qtd Mínima (Alerta)</label>
+                            <input type="number" id="est-min" required class="w-full p-2 text-sm border border-gray-300 rounded focus:border-[#C5A880]" placeholder="3">
+                        </div>
+                        <button type="submit" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold p-2.5 rounded border border-[#C5A880] hover:bg-opacity-90 transition cursor-pointer">Salvar no Estoque</button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-[#F5F2EB] text-[#2B1B11] font-bold text-xs uppercase border-b border-gray-200">
+                                <th class="p-4">Item / Insumo</th>
+                                <th class="p-4">Qtd Disponível</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 text-right">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-estoque-dados" class="divide-y divide-gray-100">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="sub-gastos" class="sub-secao hidden space-y-6">
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-700 mb-3">Lançar Nova Despesa / Gasto</h3>
+                    <form onsubmit="adicionarGasto(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Descrição do Gasto</label>
+                            <input type="text" id="gas-desc" required class="w-full p-2 text-sm border border-gray-300 rounded" placeholder="Ex: Forminhas de Acetato">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Valor (R$)</label>
+                            <input type="number" step="0.01" id="gas-valor" required class="w-full p-2 text-sm border border-gray-300 rounded" placeholder="150.00">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Categoria</label>
+                            <select id="gas-cat" class="w-full p-2 text-sm border border-gray-300 rounded bg-white">
+                                <option>Insumos / Ingredientes</option>
+                                <option>Embalagens</option>
+                                <option>Logística / Entrega</option>
+                                <option>Marketing / Infraestrutura</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold p-2.5 rounded border border-[#C5A880] hover:bg-opacity-90 transition cursor-pointer">Registrar Gasto</button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-[#F5F2EB] text-[#2B1B11] font-bold text-xs uppercase border-b border-gray-200">
+                                <th class="p-4">Descrição</th>
+                                <th class="p-4">Categoria</th>
+                                <th class="p-4">Valor</th>
+                                <th class="p-4 text-right">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-gastos-dados" class="divide-y divide-gray-100">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="sub-clientes" class="sub-secao hidden space-y-6">
+                <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+                    <div class="p-4 bg-gray-50 border-b border-gray-200">
+                        <h3 class="font-bold text-sm text-gray-700">Clientes Históricos da Base de Dados</h3>
+                    </div>
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-[#F5F2EB] text-[#2B1B11] font-bold text-xs uppercase border-b border-gray-200">
+                                <th class="p-4">Nome do Cliente</th>
+                                <th class="p-4">Último Evento Simulado</th>
+                                <th class="p-4">Data do Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-clientes-dados" class="divide-y divide-gray-100">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#2B1B11] text-white text-center p-4 border-t border-[#C5A880] text-xs opacity-90">
+        <p>&copy; 2026 Kika Festas Elegance. Sistema Comercial SaaS Base Replicável.</p>
+    </footer>
+
+    <a href="https://wa.me/5511965126370" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center group animate-bounce" style="animation-duration: 3s;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+        </svg>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 text-xs font-bold uppercase tracking-wider whitespace-nowrap">Falar com Érika</span>
+    </a>
+
+    <script>
+        // Dados de inicialização padrão caso o LocalStorage esteja vazio
+        if (!localStorage.getItem('estoque_base')) {
+            const estoqueInicial = [
+                { id: 1, nome: "Chocolate Belga Barry Callebaut (kg)", qtd: 15, min: 5 },
+                { id: 2, nome: "Massa de Amêndoas Fina (kg)", qtd: 8, min: 3 },
+                { id: 3, nome: "Folhas de Ouro Comestíveis (un)", qtd: 2, min: 10 }
+            ];
+            localStorage.setItem('estoque_base', JSON.stringify(estoqueInicial));
+        }
+
+        if (!localStorage.getItem('gastos_base')) {
+            const gastosIniciais = [
+                { id: 1, desc: "Embalagens Luxo Ouro", cat: "Embalagens", valor: 340.00 },
+                { id: 2, desc: "Logística Caminhão Refrigerado", cat: "Logística / Entrega", valor: 250.00 }
+            ];
+            localStorage.setItem('gastos_base', JSON.stringify(gastosIniciais));
+        }
+
+        if (!localStorage.getItem('clientes_base')) {
+            const clientesIniciais = [
+                { nome: "Mariana Silveira", evento: "Casamento Clássico", data: "28/05/2026" },
+                { nome: "Carlos Eduardo Guedes", evento: "Aniversário Debutante", data: "30/05/2026" }
+            ];
+            localStorage.setItem('clientes_base', JSON.stringify(clientesIniciais));
+        }
+
+        // Estado do Orçamento do Cliente Atual
+        let carinhoOrcamento = [];
+
+        // Sistema de Navegação das Abas
+        function navegarPara(idTela) {
+            // Verificar proteção de rota admin
+            if (idTela === 'dashboard-admin' && sessionStorage.getItem('admin_autenticado') !== 'true') {
+                navegarPara('login-admin');
+                return;
+            }
+
+            document.querySelectorAll('.secao-painel').forEach(tela => {
+                tela.classList.remove('ativa');
+            });
+            document.getElementById('tela-' + idTela).classList.add('ativa');
+        }
+
+        // Executar o Login Administrativo
+        function executarLoginAdmin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const senha = document.getElementById('login-senha').value;
+
+            // Credenciais fixadas solicitadas para a Base Comercial
+            if (email === 'admin@kikafestas.com' && senha === 'admin123') {
+                sessionStorage.setItem('admin_autenticado', 'true');
+                document.getElementById('erro-login').classList.add('hidden');
+                document.getElementById('btn-logout').classList.remove('hidden');
+                document.getElementById('btn-aba-admin').innerText = "Painel Admin (Ativo)";
+                renderizarPainelAdmin();
+                navegarPara('dashboard-admin');
+            } else {
+                document.getElementById('erro-login').classList.remove('hidden');
+            }
+        }
+
+        function fazerLogout() {
+            sessionStorage.removeItem('admin_autenticado');
+            document.getElementById('btn-logout').classList.add('hidden');
+            document.getElementById('btn-aba-admin').innerText = "Painel Empresa (Admin)";
+            navegarPara('home');
+        }
+
+        // Alternar as sub-abas do painel administrativo
+        function mudarSubAba(idSub) {
+            document.querySelectorAll('.sub-secao').forEach(sub => {
+                sub.classList.add('hidden');
+            });
+            document.getElementById(idSub).classList.remove('hidden');
+        }
+
+        // Lógica do Simulador do Cliente
+        function adicionarAoOrcamento(nome, preco) {
+            carinhoOrcamento.push({ nome, preco });
+            renderizarOrcamento();
+        }
+
+        function removerDoOrcamento(index) {
+            carinhoOrcamento.splice(index, 1);
+            renderizarOrcamento();
+        }
+
+        function renderizarOrcamento() {
+            const container = document.getElementById('itens-orcamento');
+            const totalTxt = document.getElementById('total-orcamento');
+            
+            if (carinhoOrcamento.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-center py-4">Nenhum item selecionado ainda.</p>`;
+                totalTxt.innerText = "R$ 0,00";
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            carinhoOrcamento.forEach((item, index) => {
+                total += item.preco;
+                html += `
+                    <div class="flex justify-between items-center py-2">
+                        <div>
+                            <span class="font-semibold block">${item.nome}</span>
+                            <span class="text-xs text-gray-500">Valor Unitário: R$ ${item.preco.toFixed(2)}</span>
+                        </div>
+                        <button onclick="removerDoOrcamento(${index})" class="text-red-700 font-bold text-xs hover:underline">Remover</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            totalTxt.innerText = `R$ ${total.toFixed(2)}`;
+        }
+
+        function enviarPedidoWhatsApp() {
+            if (carinhoOrcamento.length === 0) {
+                alert("Por favor, adicione itens ao seu carrinho de simulação primeiro!");
+                return;
+            }
+
+            let mensagem = `Olá Érika, montei uma simulação de orçamento pelo site:\n\n`;
+            let total = 0;
+            carinhoOrcamento.forEach(item => {
+                mensagem += `- ${item.nome}: R$ ${item.preco.toFixed(2)}\n`;
+                total += item.preco;
+            });
+            mensagem += `\n*Valor Estimado Total: R$ ${total.toFixed(2)}*\n`;
+            mensagem += `Gostaria de validar a disponibilidade da data.`;
+
+            // Adiciona o cliente na base local temporária ao enviar proposta
+            let clientes = JSON.parse(localStorage.getItem('clientes_base')) || [];
+            clientes.push({ nome: "Novo Cliente Web", evento: carinhoOrcamento[0].nome, data: new Date().toLocaleDateString('pt-BR') });
+            localStorage.setItem('clientes_base', JSON.stringify(clientes));
+
+            const url = `https://wa.me/5511965126370?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Lógica de Renderização das tabelas Administrativas (CRUD Local)
+        function renderizarPainelAdmin() {
+            // Renderizar Estoque
+            const estoque = JSON.parse(localStorage.getItem('estoque_base'));
+            const tabelaEstoque = document.getElementById('tabela-estoque-dados');
+            let htmlEstoque = '';
+            
+            estoque.forEach(item => {
+                const alerta = item.qtd <= item.min;
+                htmlEstoque += `
+                    <tr>
+                        <td class="p-4 font-semibold text-gray-800">${item.nome}</td>
+                        <td class="p-4 font-bold">${item.qtd} un</td>
+                        <td class="p-4">
+                            <span class="${alerta ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'} text-xs px-2.5 py-0.5 rounded-full font-medium">
+                                ${alerta ? 'Estoque Baixo' : 'Normal'}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="deletarItemEstoque(${item.id})" class="text-xs text-red-700 font-bold hover:underline">Remover</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tabelaEstoque.innerHTML = htmlEstoque;
+
+            // Renderizar Gastos
+            const gastos = JSON.parse(localStorage.getItem('gastos_base'));
+            const tabelaGastos = document.getElementById('tabela-gastos-dados');
+            let htmlGastos = '';
+            gastos.forEach(gasto => {
+                htmlGastos += `
+                    <tr>
+                        <td class="p-4 font-medium">${gasto.desc}</td>
+                        <td class="p-4 text-xs text-gray-500">${gasto.cat}</td>
+                        <td class="p-4 font-bold text-red-700">R$ ${gasto.valor.toFixed(2)}</td>
+                        <td class="p-4 text-right">
+                            <button onclick="deletarGasto(${gasto.id})" class="text-xs text-red-700 font-bold hover:underline">Excluir</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tabelaGastos.innerHTML = htmlGastos;
+
+            // Renderizar Clientes
+            const clientes = JSON.parse(localStorage.getItem('clientes_base'));
+            const tabelaClientes = document.getElementById('tabela-clientes-dados');
+            let htmlClientes = '';
+            clientes.forEach(c => {
+                htmlClientes += `
+                    <tr>
+                        <td class="p-4 font-bold text-gray-800">${c.nome}</td>
+                        <td class="p-4 text-xs">${c.evento}</td>
+                        <td class="p-4 text-gray-500">${c.data}</td>
+                    </tr>
+                `;
+            });
+            tabelaClientes.innerHTML = htmlClientes;
+        }
+
+        // Adicionar novo item ao estoque
+        function adicionarItemEstoque(event) {
+            event.preventDefault();
+            const nome = document.getElementById('est-nome').value;
+            const qtd = parseInt(document.getElementById('est-qtd').value);
+            const min = parseInt(document.getElementById('est-min').value);
+
+            let estoque = JSON.parse(localStorage.getItem('estoque_base'));
+            estoque.push({ id: Date.now(), nome, qtd, min });
+            localStorage.setItem('estoque_base', JSON.stringify(estoque));
+            
+            event.target.reset();
+            renderizarPainelAdmin();
+        }
+
+        function deletarItemEstoque(id) {
+            let estoque = JSON.parse(localStorage.getItem('estoque_base'));
+            estoque = estoque.filter(item => item.id !== id);
+            localStorage.setItem('estoque_base', JSON.stringify(estoque));
+            renderizarPainelAdmin();
+        }
+
+        // Adicionar novos gastos
+        function adicionarGasto(event) {
+            event.preventDefault();
+            const desc = document.getElementById('gas-desc').value;
+            const valor = parseFloat(document.getElementById('gas-valor').value);
+            const cat = document.getElementById('gas-cat').value;
+
+            let gastos = JSON.parse(localStorage.getItem('gastos_base'));
+            gastos.push({ id: Date.now(), desc, valor, cat });
+            localStorage.setItem('gastos_base', JSON.stringify(gastos));
+
+            event.target.reset();
+            renderizarPainelAdmin();
+        }
+
+        function deletarGasto(id) {
+            let gastos = JSON.parse(localStorage.getItem('gastos_base'));
+            gastos = gastos.filter(g => g.id !== id);
+            localStorage.setItem('gastos_base', JSON.stringify(gastos));
+            renderizarPainelAdmin();
+        }
+    </script>
+</body>
+</html>
