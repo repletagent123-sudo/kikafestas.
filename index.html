@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kika Festas Elegance - Confeitaria Fina</title>
+    <title>Kika Festas - Confeitaria Artesanal</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
-
         :root {
             --cor-perola: #F5F2EB;
             --cor-marrom: #2B1B11;
             --cor-ouro: #C5A880;
+            --cor-rosa: #E91E63;
+            --cor-rosa-claro: #FCE4EC;
         }
         body {
             font-family: 'Montserrat', sans-serif;
@@ -21,18 +22,10 @@
         .font-elegante {
             font-family: 'Cormorant Garamond', serif;
         }
-        .secao-pagina {
-            display: none;
-        }
-        .secao-pagina.ativa {
-            display: block;
-        }
-        .sub-container {
-            display: none;
-        }
-        .sub-container.ativa {
-            display: block;
-        }
+        .secao-pagina { display: none; }
+        .secao-pagina.ativa { display: block; }
+        .sub-container { display: none; }
+        .sub-container.ativa { display: block; }
         .sub-btn.ativo {
             background-color: #2B1B11;
             color: white;
@@ -61,22 +54,37 @@
         .galeria-item:hover img {
             transform: scale(1.08);
         }
+        .categoria-cardapio {
+            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+        .kit-card {
+            background: linear-gradient(135deg, #fff 0%, #FCE4EC 100%);
+            border: 2px solid #E91E63;
+        }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
     <header class="bg-[#2B1B11] text-white p-4 shadow-xl border-b-2 border-[#C5A880] sticky top-0 z-40">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-
             <div class="flex items-center space-x-3 cursor-pointer" onclick="mudarPagina('principal')">
-                <div class="w-12 h-12 rounded-full border-2 border-[#C5A880] flex items-center justify-center bg-[#2B1B11] shadow-md">
-                    <span class="font-elegante text-2xl font-bold text-[#C5A880] tracking-tighter">K</span>
-                    <span class="font-elegante text-xl font-light text-white -ml-0.5">F</span>
+                <div class="w-14 h-14 rounded-full border-2 border-[#C5A880] flex items-center justify-center bg-[#2B1B11] shadow-md overflow-hidden">
+                    <img src="data:image/png;base64,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" alt="Kika Festas Logo" class="w-full h-full object-cover">
                 </div>
                 <div class="flex flex-col">
                     <span class="font-elegante text-2xl font-bold text-[#C5A880] tracking-wide leading-none">Kika Festas</span>
-                    <span class="text-[9px] uppercase tracking-widest text-[#C5A880] font-bold mt-1">CONFEITARIA ELEGANCE</span>
+                    <span class="text-[9px] uppercase tracking-widest text-[#C5A880] font-bold mt-1">CONFEITARIA ARTESANAL</span>
                 </div>
             </div>
 
@@ -95,59 +103,60 @@
         <!-- PÁGINA 1: CARDÁPIO E ORÇAMENTO -->
         <section id="pag-principal" class="secao-pagina ativa space-y-8">
             <div class="text-center max-w-2xl mx-auto my-4">
-                <h1 class="font-elegante text-4xl md:text-5xl font-bold text-[#2B1B11]">Cardápio Exclusivo de Doces</h1>
-                <p class="text-gray-600 text-sm mt-2">Selecione as opções finas abaixo para simular os valores do seu evento.</p>
+                <h1 class="font-elegante text-4xl md:text-5xl font-bold text-[#2B1B11]">Cardápio Kika Festas</h1>
+                <p class="text-gray-600 text-sm mt-2">Doces artesanais feitos com amor para tornar sua festa inesquecível.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <!-- ITEM 1: Cupcake sem recheio -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <!-- TABELA DE DOCES (UNIDADE) -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="categoria-cardapio">TABELA DE DOCES (UNIDADE)</div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/14522725/pexels-photo-14522725.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake sem recheio" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake sem Recheio</h3>
-                        <p class="text-xs text-gray-500">Cupcake artesanal com cobertura de buttercream, perfeito para festas e eventos.</p>
+                        <p class="text-xs text-gray-500">Cupcake artesanal com cobertura decorativa.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 4,50</span>
-                            <button onclick="adicionarItem('Cupcake sem Recheio', 4.50)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 4,50</span>
+                            <button onclick="adicionarItem('Cupcake sem Recheio', 4.50)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 2: Cupcake com recheio -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake com recheio" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake com Recheio</h3>
-                        <p class="text-xs text-gray-500">Cupcake recheado com brigadeiro gourmet, doce de leite ou Nutella.</p>
+                        <p class="text-xs text-gray-500">Cupcake recheado com brigadeiro ou doce de leite.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 5,00</span>
-                            <button onclick="adicionarItem('Cupcake com Recheio', 5.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 5,00</span>
+                            <button onclick="adicionarItem('Cupcake com Recheio', 5.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 3: Mini Pão de mel -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mini Pão de Mel" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Mini Pão de Mel</h3>
-                        <p class="text-xs text-gray-500">Delicioso pão de mel recheado com doce de leite. Pedido mínimo: 25 unidades.</p>
+                        <p class="text-xs text-gray-500">Delicioso pão de mel recheado. <strong>Pedido mínimo: 25 unidades.</strong></p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 4,50</span>
-                            <button onclick="adicionarItem('Mini Pão de Mel', 4.50)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 4,50</span>
+                            <button onclick="adicionarItem('Mini Pão de Mel', 4.50)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 4: Maçã do amor tradicional -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/6554679/pexels-photo-6554679.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor Tradicional" class="img-produto w-full h-full object-cover">
                     </div>
@@ -155,14 +164,13 @@
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor Tradicional</h3>
                         <p class="text-xs text-gray-500">Maçã caramelizada na calda tradicional, crocante e deliciosa.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 7,00</span>
-                            <button onclick="adicionarItem('Maçã do Amor Tradicional', 7.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 7,00</span>
+                            <button onclick="adicionarItem('Maçã do Amor Tradicional', 7.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 5: Maçã do amor de chocolate -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/9623537/pexels-photo-9623537.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor de Chocolate" class="img-produto w-full h-full object-cover">
                     </div>
@@ -170,114 +178,263 @@
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor de Chocolate</h3>
                         <p class="text-xs text-gray-500">Maçã do amor banhada em chocolate ao leite, branco ou colorido.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 10,00</span>
-                            <button onclick="adicionarItem('Maçã do Amor de Chocolate', 10.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 10,00</span>
+                            <button onclick="adicionarItem('Maçã do Amor de Chocolate', 10.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 6: Bolo no palito com tag 3D -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/15550435/pexels-photo-15550435.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo no Palito com Tag 3D" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo no Palito com Tag 3D</h3>
-                        <p class="text-xs text-gray-500">Bolo no palito decorado com tag 3D personalizada, ideal para lembrancinhas.</p>
+                        <p class="text-xs text-gray-500">Bolo no palito decorado com tag 3D personalizada.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 12,00</span>
-                            <button onclick="adicionarItem('Bolo no Palito com Tag 3D', 12.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 12,00</span>
+                            <button onclick="adicionarItem('Bolo no Palito com Tag 3D', 12.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 7: Quadro de chocolate -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/31164722/pexels-photo-31164722.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quadro de Chocolate" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Quadro de Chocolate</h3>
-                        <p class="text-xs text-gray-500">Quadro artístico de chocolate belga, perfeito para decoração e presente.</p>
+                        <p class="text-xs text-gray-500">Quadro artístico de chocolate belga.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 10,00</span>
-                            <button onclick="adicionarItem('Quadro de Chocolate', 10.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 10,00</span>
+                            <button onclick="adicionarItem('Quadro de Chocolate', 10.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 8: Cone trufado -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
                         <img src="https://images.pexels.com/photos/29098336/pexels-photo-29098336.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cone Trufado" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
                         <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cone Trufado</h3>
-                        <p class="text-xs text-gray-500">Cone crocante recheado com trufa de chocolate nobre e cobertura especial.</p>
+                        <p class="text-xs text-gray-500">Cone crocante recheado com trufa de chocolate nobre.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 8,00</span>
-                            <button onclick="adicionarItem('Cone Trufado', 8.00)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 8,00</span>
+                            <button onclick="adicionarItem('Cone Trufado', 8.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 9: Bolo de Noiva Premium (mantido) -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <!-- DOCES TRADICIONAIS (100 UNIDADES) -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="categoria-cardapio">DOCES TRADICIONAIS (100 UNIDADES)</div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Noiva Premium" class="img-produto w-full h-full object-cover">
+                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Docinhos Tradicionais" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo de Noiva Premium (Por Andar)</h3>
-                        <p class="text-xs text-gray-500">Massa de amêndoas, recheio gourmet artesanal e acabamento luxuoso.</p>
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Docinhos Tradicionais - Forminhas Convencionais</h3>
+                        <p class="text-xs text-gray-500">Brigadeiro, Bicho de pé, Beijinho. 100 unidades.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 350,00</span>
-                            <button onclick="adicionarItem('Bolo de Noiva Premium', 350)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 100,00</span>
+                            <button onclick="adicionarItem('Docinhos Tradicionais - Forminhas Convencionais (100un)', 100.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 10: Cento de Trufas & Camafeus (FOTO NOVA) -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cento de Trufas e Camafeus" class="img-produto w-full h-full object-cover">
+                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Docinhos Tradicionais Pétalas" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cento de Trufas & Camafeus</h3>
-                        <p class="text-xs text-gray-500">Doces finos artesanais banhados em chocolate nobre com acabamento requintado.</p>
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Docinhos Tradicionais - Forminhas de Pétalas</h3>
+                        <p class="text-xs text-gray-500">Brigadeiro, Bicho de pé, Beijinho em forminhas de pétalas. 100 unidades.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 280,00</span>
-                            <button onclick="adicionarItem('Cento de Trufas & Camafeus', 280)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 130,00</span>
+                            <button onclick="adicionarItem('Docinhos Tradicionais - Forminhas de Pétalas (100un)', 130.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ITEM 11: Combo Macarons Franceses (mantido) -->
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#C5A880]/20 overflow-hidden group">
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
                     <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Combo Macarons Franceses" class="img-produto w-full h-full object-cover">
+                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Brigadeiro Gourmet" class="img-produto w-full h-full object-cover">
                     </div>
                     <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Combo Macarons Franceses (50 un)</h3>
-                        <p class="text-xs text-gray-500">Delicados macarons tradicionais franceses com recheios finos estruturados.</p>
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Brigadeiro Gourmet</h3>
+                        <p class="text-xs text-gray-500">Sabores: Chocolate, Amendoim, Ninho, Paçoca, Casadinho, Oreo, Confeti, Chocolate branco. 100 unidades.</p>
                         <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#2B1B11]">R$ 190,00</span>
-                            <button onclick="adicionarItem('Combo Macarons Franceses', 190)" class="bg-[#2B1B11] text-[#C5A880] text-xs font-bold px-3 py-2 rounded hover:bg-opacity-90 transition cursor-pointer">Adicionar</button>
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 190,00</span>
+                            <button onclick="adicionarItem('Brigadeiro Gourmet (100un)', 190.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Copinho de Chocolate" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Copinho de Chocolate</h3>
+                        <p class="text-xs text-gray-500">100 unidades.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 220,00</span>
+                            <button onclick="adicionarItem('Copinho de Chocolate (100un)', 220.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bombom sem Recheio" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bombom sem Recheio</h3>
+                        <p class="text-xs text-gray-500">100 unidades.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 220,00</span>
+                            <button onclick="adicionarItem('Bombom sem Recheio (100un)', 220.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mini Trufa" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Mini Trufa</h3>
+                        <p class="text-xs text-gray-500">100 unidades.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 250,00</span>
+                            <button onclick="adicionarItem('Mini Trufa (100un)', 250.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA DE BOLOS -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="categoria-cardapio">TABELA DE BOLOS</div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Recheios Tradicionais" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo de Massa Branca ou Chocolate - Recheios Tradicionais</h3>
+                        <p class="text-xs text-gray-500">Mousse de Limão, Mousse de Maracujá, Mousse de Morango, Brigadeiro, Beijinho, Doce de Leite.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 90,00/kg</span>
+                            <button onclick="adicionarItem('Bolo Recheios Tradicionais (kg)', 90.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Recheios Especiais" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo - Recheios Especiais</h3>
+                        <p class="text-xs text-gray-500">Mousse de chocolate ao leite, Mousse de chocolate branco, Abacaxi, Doce de leite com ameixa.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 105,00/kg</span>
+                            <button onclick="adicionarItem('Bolo Recheios Especiais (kg)', 105.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Ninho ou Brigadeiro com Morango" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo - Ninho ou Brigadeiro com Morango</h3>
+                        <p class="text-xs text-gray-500">Recheio especial de ninho ou brigadeiro com morango.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 110,00/kg</span>
+                            <button onclick="adicionarItem('Bolo Ninho ou Brigadeiro com Morango (kg)', 110.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Decorado Kit Kat ou Confeti" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo Decorado com Kit Kat ou Confeti</h3>
+                        <p class="text-xs text-gray-500">Bolo decorado com kit kat ou confeti colorido.</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 150,00/kg</span>
+                            <button onclick="adicionarItem('Bolo Decorado com Kit Kat ou Confeti (kg)', 150.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KIT FESTA -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="categoria-cardapio">KIT FESTA</div>
+                </div>
+
+                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kit Festa 1" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Kit Festa 1</h3>
+                        <p class="text-xs text-gray-500">1 bolo com 1kg + 25 docinhos (brigadeiro ou beijinho) + 5 pirulitos de chocolate.<br><strong>O bolo já vem com topper simples, impressão no papel photo e os pirulitos com as tag's temáticas.</strong></p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 140,00</span>
+                            <button onclick="adicionarItem('Kit Festa 1', 140.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kit Festa 2" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Kit Festa 2</h3>
+                        <p class="text-xs text-gray-500">1 bolo com 2kg + 50 docinhos (brigadeiro, beijinho ou bicho de pé) + 10 pirulitos de chocolate.<br><strong>O bolo já vem com topper simples, impressão no papel photo e os pirulitos com as tag's temáticas.</strong></p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 240,00</span>
+                            <button onclick="adicionarItem('Kit Festa 2', 240.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
+                    <div class="h-56 bg-gray-100 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Festa na Caixa" class="img-produto w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Festa na Caixa</h3>
+                        <p class="text-xs text-gray-500">Caixa temática com painel e balão + Bolo de 800g (massa branca ou chocolate) + 10 docinhos + 6 empadinhas de frango + 1 bebida em lata (refrigerante ou cerveja).</p>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-lg font-bold text-[#E91E63]">R$ 280,00</span>
+                            <button onclick="adicionarItem('Festa na Caixa', 280.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-[#C5A880]/30 max-w-xl mx-auto">
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-[#E91E63]/30 max-w-xl mx-auto">
                 <h3 class="font-elegante text-2xl font-bold mb-4 text-center text-[#2B1B11]">Resumo da Sua Simulação</h3>
                 <div id="lista-simulacao" class="space-y-2 text-sm divide-y divide-gray-100">
                     <p class="text-gray-400 text-center py-4">Escolha os produtos acima para iniciar.</p>
                 </div>
-                <div class="border-t border-[#C5A880]/30 mt-4 pt-4 flex justify-between items-center font-bold text-lg">
+                <div class="border-t border-[#E91E63]/30 mt-4 pt-4 flex justify-between items-center font-bold text-lg">
                     <span>Orçamento Total:</span>
                     <span id="valor-total-simulacao">R$ 0,00</span>
                 </div>
-                <button onclick="enviarParaWhatsApp()" class="w-full bg-[#2B1B11] text-[#C5A880] font-bold p-3.5 rounded-xl mt-4 border border-[#C5A880] hover:bg-opacity-95 transition cursor-pointer">
+                <button onclick="enviarParaWhatsApp()" class="w-full bg-[#E91E63] text-white font-bold p-3.5 rounded-xl mt-4 border border-[#E91E63] hover:bg-[#C2185B] transition cursor-pointer">
                     Enviar Pedido pelo WhatsApp
                 </button>
             </div>
@@ -291,35 +448,27 @@
             </div>
 
             <div id="grid-galeria-fotos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Foto 1: Mesa de doces casamento -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Casamento" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 2: Mesa luxo noite -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Luxo" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 3: Bolo branco ouro -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Branco com Ouro" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 4: Bolo aniversário flores -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Aniversário Flores" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 5: Bolo 3 andares casamento -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Casamento 3 Andares" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 6: Mesa doces variados -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Variados" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 7: Macarons coloridos -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Macarons Coloridos" class="w-full h-56 object-cover rounded-lg">
                 </div>
-                <!-- Foto 8: Cake pops -->
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cake Pops Elegantes" class="w-full h-56 object-cover rounded-lg">
                 </div>
@@ -330,18 +479,18 @@
         <section id="pag-depoimentos" class="secao-pagina space-y-6">
             <div class="text-center max-w-xl mx-auto">
                 <h2 class="font-elegante text-3xl md:text-4xl font-bold text-[#2B1B11]">Depoimentos e Avaliações</h2>
-                <p class="text-xs text-gray-500 mt-1">A opinião de quem confiou em nossa alta confeitaria para marcar momentos especiais.</p>
+                <p class="text-xs text-gray-500 mt-1">A opinião de quem confiou em nossa confeitaria para momentos especiais.</p>
             </div>
 
             <div id="lista-depoimentos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"As trufas e o camafeu foram o comentário de todos os convidados no meu casamento. Um trabalho impecável e de um sabor inesquecível!"</p>
-                    <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira (Noiva Elegance)</div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
+                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
+                    <p class="text-sm italic text-gray-700 pt-2">"Os doces da Kika Festas foram o destaque da minha festa! Todos amaram os brigadeiros gourmet."</p>
+                    <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira</div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"O bolo decorado estava exatamente idêntico ao modelo que enviamos como referência. Érika é uma artista completa."</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
+                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
+                    <p class="text-sm italic text-gray-700 pt-2">"O Kit Festa foi perfeito! Bolo lindo e delicioso, e os docinhos estavam maravilhosos."</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Carlos Eduardo Guedes</div>
                 </div>
             </div>
@@ -349,7 +498,7 @@
 
         <!-- PÁGINA 4: LOGIN ADMIN -->
         <section id="pag-login-admin" class="secao-pagina py-8">
-            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#C5A880]/30">
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#E91E63]/30">
                 <div class="bg-[#2B1B11] p-6 text-center border-b border-[#C5A880]">
                     <h2 class="font-elegante text-2xl font-bold text-[#C5A880]">Área da Administração</h2>
                     <p class="text-white/70 text-xs mt-1">Restrito para gerenciamento de estoque, fotos e despesas</p>
@@ -357,11 +506,11 @@
                 <form onsubmit="autenticarAdmin(event)" class="p-6 space-y-4">
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">E-mail Administrativo</label>
-                        <input type="email" id="adm-email" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#C5A880] bg-[#F5F2EB]/40 text-sm" placeholder="admin@kikafestas.com">
+                        <input type="email" id="adm-email" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#E91E63] bg-[#F5F2EB]/40 text-sm" placeholder="admin@kikafestas.com">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Senha Privada</label>
-                        <input type="password" id="adm-senha" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#C5A880] bg-[#F5F2EB]/40 text-sm" placeholder="••••••••">
+                        <input type="password" id="adm-senha" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#E91E63] bg-[#F5F2EB]/40 text-sm" placeholder="••••••••">
                     </div>
                     <div id="erro-auth" class="text-red-600 text-xs font-bold hidden">Acesso negado. Verifique suas credenciais.</div>
                     <button type="submit" class="w-full bg-[#2B1B11] text-[#C5A880] font-bold p-3.5 rounded-lg border border-[#C5A880] shadow-md hover:bg-opacity-95 transition cursor-pointer">
@@ -385,14 +534,13 @@
                 </div>
             </div>
 
-            <!-- SUB: ESTOQUE -->
             <div id="sub-estoque" class="sub-container ativa space-y-4">
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <h4 class="text-xs font-bold uppercase text-gray-700 mb-2">Entrada de Insumo</h4>
                     <form onsubmit="cadastrarEstoque(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-2 items-end">
-                        <input type="text" id="insumo-nome" placeholder="Nome do Insumo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
-                        <input type="number" id="insumo-qtd" placeholder="Quantidade" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
-                        <input type="number" id="insumo-min" placeholder="Alerta Mínimo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <input type="text" id="insumo-nome" placeholder="Nome do Insumo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
+                        <input type="number" id="insumo-qtd" placeholder="Quantidade" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
+                        <input type="number" id="insumo-min" placeholder="Alerta Mínimo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
                         <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer hover:bg-opacity-90">Adicionar</button>
                     </form>
                 </div>
@@ -406,13 +554,12 @@
                 </div>
             </div>
 
-            <!-- SUB: GASTOS -->
             <div id="sub-gastos" class="sub-container space-y-4">
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <h4 class="text-xs font-bold uppercase text-gray-700 mb-2">Lançar Novo Custo</h4>
                     <form onsubmit="cadastrarGasto(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-end">
-                        <input type="text" id="gasto-desc" placeholder="Descrição do Custo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
-                        <input type="number" step="0.01" id="gasto-valor" placeholder="Valor (R$)" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
+                        <input type="text" id="gasto-desc" placeholder="Descrição do Custo" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
+                        <input type="number" step="0.01" id="gasto-valor" placeholder="Valor (R$)" required class="p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
                         <button type="submit" class="bg-[#2B1B11] text-white text-xs p-2 rounded border border-[#C5A880] cursor-pointer hover:bg-opacity-90">Salvar</button>
                     </form>
                 </div>
@@ -426,20 +573,19 @@
                 </div>
             </div>
 
-            <!-- SUB: CONTEÚDO -->
             <div id="sub-conteudo" class="sub-container grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
                     <h3 class="font-bold text-sm text-[#2B1B11] border-b pb-2">Alimentar Página 2: Injetar Foto na Galeria</h3>
                     <form onsubmit="inserirFotoGaleria(event)" class="space-y-2">
-                        <input type="url" id="galeria-url" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]" placeholder="https://images.pexels.com/...">
+                        <input type="url" id="galeria-url" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]" placeholder="https://images.pexels.com/...">
                         <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer hover:bg-opacity-90">Injetar Foto</button>
                     </form>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
                     <h3 class="font-bold text-sm text-[#2B1B11] border-b pb-2">Alimentar Página 3: Postar Depoimento</h3>
                     <form onsubmit="inserirDepoimento(event)" class="space-y-2">
-                        <input type="text" id="dep-nome" placeholder="Nome do Cliente" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#C5A880]">
-                        <textarea id="dep-texto" placeholder="Texto do depoimento..." required class="w-full p-2 border rounded text-xs h-20 focus:outline-none focus:border-[#C5A880]"></textarea>
+                        <input type="text" id="dep-nome" placeholder="Nome do Cliente" required class="w-full p-2 border rounded text-xs focus:outline-none focus:border-[#E91E63]">
+                        <textarea id="dep-texto" placeholder="Texto do depoimento..." required class="w-full p-2 border rounded text-xs h-20 focus:outline-none focus:border-[#E91E63]"></textarea>
                         <button type="submit" class="w-full bg-[#2B1B11] text-white text-xs p-2 rounded cursor-pointer hover:bg-opacity-90">Publicar Depoimento</button>
                     </form>
                 </div>
@@ -449,7 +595,7 @@
     </main>
 
     <footer class="bg-[#2B1B11] text-white text-center p-4 border-t border-[#C5A880] text-xs opacity-90 mt-auto">
-        <p>&copy; 2026 Kika Festas. Confeitaria Elegance - Todos os direitos reservados.</p>
+        <p>&copy; 2026 Kika Festas. Confeitaria Artesanal - Todos os direitos reservados.</p>
     </footer>
 
     <a href="https://wa.me/5511965126370" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center group animate-bounce" style="animation-duration: 4s;">
@@ -457,7 +603,6 @@
     </a>
 
     <script>
-        // Inicialização do LocalStorage
         if (!localStorage.getItem('db_estoque')) {
             localStorage.setItem('db_estoque', JSON.stringify([
                 { id: 1, nome: "Chocolate Callebaut Belga (kg)", qtd: 12, min: 4 },
@@ -482,12 +627,9 @@
                 return;
             }
 
-            // Esconde todas as seções
             document.querySelectorAll('.secao-pagina').forEach(p => p.classList.remove('ativa'));
-            // Mostra a seção selecionada
             document.getElementById('pag-' + idPagina).classList.add('ativa');
 
-            // Atualiza botões de navegação
             ['principal', 'galeria', 'depoimentos'].forEach(aba => {
                 const btn = document.getElementById('btn-' + aba);
                 if(btn) {
@@ -499,12 +641,10 @@
                 }
             });
 
-            // Se for dashboard, atualiza dados
             if (idPagina === 'dashboard') {
                 atualizarPainelDados();
             }
 
-            // Scroll para o topo
             window.scrollTo(0, 0);
         }
 
@@ -579,7 +719,7 @@
                 return;
             }
 
-            let msg = `Olá Érika, realizei uma simulação pelo site Kika Festas:
+            let msg = `Olá Kika Festas, realizei uma simulação pelo site:
 
 `;
             let total = 0; 
@@ -597,7 +737,6 @@
             const fotosLocais = JSON.parse(localStorage.getItem('db_galeria')) || [];
             const containerGaleria = document.getElementById('grid-galeria-fotos');
 
-            // Fotos base da galeria
             let htmlGaleria = `
                 <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Casamento" class="w-full h-56 object-cover rounded-lg">
@@ -625,7 +764,6 @@
                 </div>
             `;
 
-            // Adiciona fotos do localStorage
             fotosLocais.forEach(f => { 
                 htmlGaleria += `<div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
                     <img src="${f.url}" alt="Foto da Galeria" class="w-full h-56 object-cover rounded-lg">
@@ -638,21 +776,21 @@
             const containerDeps = document.getElementById('lista-depoimentos-container');
 
             let htmlDeps = `
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"As trufas e o camafeu foram o comentário de todos os convidados no meu casamento. Um trabalho impecável e de um sabor inesquecível!"</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
+                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
+                    <p class="text-sm italic text-gray-700 pt-2">"Os doces da Kika Festas foram o destaque da minha festa! Todos amaram os brigadeiros gourmet."</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira</div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"O bolo decorado estava exatamente idêntico ao modelo que enviamos como referência."</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
+                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
+                    <p class="text-sm italic text-gray-700 pt-2">"O Kit Festa foi perfeito! Bolo lindo e delicioso, e os docinhos estavam maravilhosos."</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— Carlos Eduardo Guedes</div>
                 </div>
             `;
 
             depsLocais.forEach(d => {
-                htmlDeps += `<div class="bg-white p-6 rounded-2xl shadow-sm border border-[#C5A880]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#C5A880] font-serif absolute top-2 right-4 opacity-40">"</span>
+                htmlDeps += `<div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
+                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
                     <p class="text-sm italic text-gray-700 pt-2">"${d.texto}"</p>
                     <div class="font-bold text-xs text-[#2B1B11]">— ${d.nome}</div>
                 </div>`;
