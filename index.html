@@ -1,498 +1,1339 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kika Festas - Confeitaria Artesanal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
         :root {
-            --cor-perola: #F5F2EB;
-            --cor-marrom: #2B1B11;
-            --cor-ouro: #C5A880;
-            --cor-rosa: #E91E63;
-            --cor-rosa-claro: #FCE4EC;
+            --perola: #F8F4EE;
+            --marrom: #2B1B11;
+            --marrom-light: #4A2E1C;
+            --ouro: #C5A880;
+            --ouro-light: #E8D5B7;
+            --rosa: #D4447E;
+            --rosa-dark: #A8335F;
+            --rosa-light: #FCE4EC;
+            --rosa-pale: #FDF0F5;
+            --cinza: #6B7280;
+            --white: #FFFFFF;
+            --shadow: 0 4px 24px rgba(43,27,17,0.10);
+            --shadow-hover: 0 12px 40px rgba(43,27,17,0.18);
+            --radius: 20px;
+            --radius-sm: 12px;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--cor-perola);
-            color: var(--cor-marrom);
+            background: var(--perola);
+            color: var(--marrom);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .font-elegante {
+
+        .font-elegante { font-family: 'Cormorant Garamond', serif; }
+
+        /* ── HEADER ── */
+        header {
+            background: var(--marrom);
+            border-bottom: 3px solid var(--ouro);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--ouro);
+            overflow: hidden;
+            background: var(--marrom-light);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .brand-text { display: flex; flex-direction: column; }
+
+        .brand-name {
             font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--ouro);
+            line-height: 1;
+            letter-spacing: 1px;
         }
+
+        .brand-sub {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: var(--ouro-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        nav { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .nav-btn {
+            padding: 9px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn.ativo {
+            background: var(--ouro);
+            color: var(--marrom);
+            border-color: var(--ouro);
+        }
+
+        .nav-btn:not(.ativo) {
+            background: transparent;
+            color: var(--ouro-light);
+            border-color: rgba(197,168,128,0.3);
+        }
+
+        .nav-btn:not(.ativo):hover {
+            background: rgba(197,168,128,0.15);
+            border-color: var(--ouro);
+            color: var(--ouro);
+        }
+
+        /* ── MAIN ── */
+        main {
+            flex: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 32px 20px 60px;
+        }
+
+        /* ── SECTIONS ── */
         .secao-pagina { display: none; }
         .secao-pagina.ativa { display: block; }
-        .card-produto {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-produto:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(43, 27, 17, 0.15);
-        }
-        .img-produto {
-            transition: transform 0.5s ease;
-        }
-        .card-produto:hover .img-produto {
-            transform: scale(1.05);
-        }
-        .galeria-item {
-            overflow: hidden;
-            border-radius: 0.75rem;
-        }
-        .galeria-item img {
-            transition: transform 0.5s ease;
-        }
-        .galeria-item:hover img {
-            transform: scale(1.08);
-        }
-        .categoria-cardapio {
-            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
+
+        /* ── PAGE TITLE ── */
+        .page-title {
             text-align: center;
-            margin: 2rem 0 1rem 0;
-            font-size: 1.25rem;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            margin-bottom: 40px;
         }
-        .kit-card {
-            background: linear-gradient(135deg, #fff 0%, #FCE4EC 100%);
-            border: 2px solid #E91E63;
+
+        .page-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 5vw, 58px);
+            font-weight: 700;
+            color: var(--marrom);
+            line-height: 1.1;
+        }
+
+        .page-title .subtitle {
+            font-size: 13px;
+            color: var(--cinza);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .page-title .ouro-line {
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--ouro), var(--rosa));
+            border-radius: 99px;
+            margin: 12px auto 0;
+        }
+
+        /* ── CATEGORIA BANNER ── */
+        .categoria-banner {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0 24px;
+        }
+
+        .categoria-banner::before,
+        .categoria-banner::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ouro));
+        }
+
+        .categoria-banner::after {
+            background: linear-gradient(90deg, var(--ouro), transparent);
+        }
+
+        .categoria-banner span {
+            background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-dark) 100%);
+            color: white;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(212,68,126,0.35);
+        }
+
+        /* ── PRODUCT GRID ── */
+        .produto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* ── PRODUCT CARD ── */
+        .card-produto {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212,68,126,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-produto:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-produto.kit {
+            background: linear-gradient(160deg, #fff 0%, var(--rosa-pale) 100%);
+            border: 1.5px solid rgba(212,68,126,0.25);
+        }
+
+        .card-img-wrap {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background: #f5f0ea;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-produto:hover .card-img-wrap img {
+            transform: scale(1.06);
+        }
+
+        .badge-kit {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--rosa);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(212,68,126,0.4);
+        }
+
+        .card-body {
+            padding: 20px 22px 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--marrom);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 11.5px;
+            color: var(--cinza);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .card-desc strong {
+            color: var(--rosa-dark);
+            font-weight: 600;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #f0e8e8;
+        }
+
+        .card-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--rosa);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .card-price span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--cinza);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-add {
+            background: var(--rosa);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: background 0.2s ease, transform 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-add:hover {
+            background: var(--rosa-dark);
+            transform: scale(1.04);
+        }
+
+        /* ── CARRINHO / SIMULAÇÃO ── */
+        .simulacao-wrap {
+            max-width: 600px;
+            margin: 48px auto 0;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1.5px solid rgba(212,68,126,0.2);
+            overflow: hidden;
+        }
+
+        .simulacao-header {
+            background: linear-gradient(135deg, var(--marrom) 0%, var(--marrom-light) 100%);
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .simulacao-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--ouro);
+            font-weight: 700;
+        }
+
+        .simulacao-header i { color: var(--ouro); font-size: 20px; }
+
+        .simulacao-body { padding: 24px 28px; }
+
+        #lista-simulacao { min-height: 60px; }
+
+        .item-carrinho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5eeee;
+            gap: 8px;
+        }
+
+        .item-carrinho:last-child { border-bottom: none; }
+
+        .item-info { flex: 1; }
+
+        .item-nome {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--marrom);
+            display: block;
+        }
+
+        .item-preco {
+            font-size: 11px;
+            color: var(--cinza);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .btn-remover {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-remover:hover { background: #fef2f2; }
+
+        .empty-msg {
+            text-align: center;
+            color: var(--cinza);
+            font-size: 13px;
+            padding: 20px 0;
+        }
+
+        .empty-msg i { display: block; font-size: 28px; margin-bottom: 8px; opacity: 0.4; }
+
+        .simulacao-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0 0;
+            border-top: 2px solid var(--rosa-light);
+            margin-top: 8px;
+        }
+
+        .simulacao-total .label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--marrom);
+        }
+
+        .simulacao-total .valor {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--rosa);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .btn-whatsapp:hover { opacity: 0.92; transform: translateY(-1px); }
+
+        /* ── GALERIA ── */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .galeria-item {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: white;
+            padding: 6px;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .galeria-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .galeria-item:hover img { transform: scale(1.04); }
+
+        .galeria-item .galeria-caption {
+            padding: 8px 4px 2px;
+            font-size: 11px;
+            color: var(--cinza);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ── DEPOIMENTOS ── */
+        .depoimento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .depoimento-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 28px 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212,68,126,0.12);
+            position: relative;
+        }
+
+        .depoimento-aspas {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            font-size: 52px;
+            color: var(--rosa);
+            opacity: 0.12;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .depoimento-stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 14px;
+        }
+
+        .depoimento-stars i { color: #F59E0B; font-size: 13px; }
+
+        .depoimento-texto {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .depoimento-autor {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .depoimento-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--rosa-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--rosa-dark);
+            font-family: 'Cormorant Garamond', serif;
+            flex-shrink: 0;
+        }
+
+        .depoimento-nome {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--marrom);
+        }
+
+        .depoimento-data {
+            font-size: 10px;
+            color: var(--cinza);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--marrom);
+            color: rgba(255,255,255,0.7);
+            border-top: 2px solid var(--ouro);
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        footer .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--ouro);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* ── WHATSAPP FLOAT ── */
+        .wa-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 200;
+            width: 62px; height: 62px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            animation: pulse-wa 3s infinite;
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 28px rgba(37,211,102,0.6);
+            animation: none;
+        }
+
+        .wa-float svg { width: 30px; height: 30px; fill: white; }
+
+        @keyframes pulse-wa {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+            50% { box-shadow: 0 4px 32px rgba(37,211,102,0.75); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .header-inner { padding: 12px 16px; }
+            .brand-name { font-size: 22px; }
+            main { padding: 20px 14px 50px; }
+            .produto-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .card-img-wrap { height: 170px; }
+            .card-title { font-size: 16px; }
+            .card-price { font-size: 18px; }
+            .btn-add { padding: 8px 12px; font-size: 10px; }
+            .galeria-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .galeria-item img { height: 160px; }
+            .simulacao-wrap { margin-top: 32px; }
+            .simulacao-body { padding: 16px 18px; }
+        }
+
+        @media (max-width: 400px) {
+            .produto-grid { grid-template-columns: 1fr; }
+            .galeria-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body>
 
-    <header class="bg-[#2B1B11] text-white p-4 shadow-xl border-b-2 border-[#C5A880] sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="mudarPagina('principal')">
-                <div class="w-14 h-14 rounded-full border-2 border-[#C5A880] flex items-center justify-center bg-[#2B1B11] shadow-md overflow-hidden">
-                    <img src="https://i.imgur.com/kika-logo.png" alt="Kika Festas Logo" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23C5A880%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%232B1B11%22%3EKF%3C/text%3E%3C/svg%3E'">
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <div class="brand" onclick="mudarPagina('principal')">
+                <div class="brand-logo">
+                    <img src="https://i.imgur.com/kika-logo.png" alt="Kika Festas"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2249%22 fill=%22%23C5A880%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%232B1B11%22 font-family=%22Georgia%22 font-weight=%22bold%22%3EKF%3C/text%3E%3C/svg%3E'">
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-elegante text-2xl font-bold text-[#C5A880] tracking-wide leading-none">Kika Festas</span>
-                    <span class="text-[9px] uppercase tracking-widest text-[#C5A880] font-bold mt-1">CONFEITARIA ARTESANAL</span>
+                <div class="brand-text">
+                    <span class="brand-name">Kika Festas</span>
+                    <span class="brand-sub">Confeitaria Artesanal</span>
                 </div>
             </div>
-
-            <nav class="flex flex-wrap gap-2 text-xs font-bold">
-                <button onclick="mudarPagina('principal')" id="btn-principal" class="bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer hover:opacity-90">1. Cardápio & Orçamento</button>
-                <button onclick="mudarPagina('galeria')" id="btn-galeria" class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer">2. Galeria de Fotos</button>
-                <button onclick="mudarPagina('depoimentos')" id="btn-depoimentos" class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer">3. Depoimentos</button>
+            <nav>
+                <button class="nav-btn ativo" id="btn-principal" onclick="mudarPagina('principal')">
+                    <i class="fas fa-cake-candles"></i> Cardápio
+                </button>
+                <button class="nav-btn" id="btn-galeria" onclick="mudarPagina('galeria')">
+                    <i class="fas fa-images"></i> Galeria
+                </button>
+                <button class="nav-btn" id="btn-depoimentos" onclick="mudarPagina('depoimentos')">
+                    <i class="fas fa-star"></i> Avaliações
+                </button>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
+    <main>
 
-        <!-- PÁGINA 1: CARDÁPIO E ORÇAMENTO -->
-        <section id="pag-principal" class="secao-pagina ativa space-y-8">
-            <div class="text-center max-w-2xl mx-auto my-4">
-                <h1 class="font-elegante text-4xl md:text-5xl font-bold text-[#2B1B11]">Cardápio Kika Festas</h1>
-                <p class="text-gray-600 text-sm mt-2">Doces artesanais feitos com amor para tornar sua festa inesquecível.</p>
+        <!-- ===== PÁGINA 1: CARDÁPIO ===== -->
+        <section id="pag-principal" class="secao-pagina ativa">
+
+            <div class="page-title">
+                <h1 class="font-elegante">Cardápio Kika Festas</h1>
+                <p class="subtitle">Doces artesanais feitos com amor para tornar sua festa inesquecível</p>
+                <div class="ouro-line"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- TABELA DE DOCES (UNIDADE) -->
-                <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                    <div class="categoria-cardapio">TABELA DE DOCES (UNIDADE)</div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/14522725/pexels-photo-14522725.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake sem recheio" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake sem Recheio</h3>
-                        <p class="text-xs text-gray-500">Cupcake artesanal com cobertura decorativa.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 4,50</span>
-                            <button onclick="adicionarItem('Cupcake sem Recheio', 4.50)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcake com recheio" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cupcake com Recheio</h3>
-                        <p class="text-xs text-gray-500">Cupcake recheado com brigadeiro ou doce de leite.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 5,00</span>
-                            <button onclick="adicionarItem('Cupcake com Recheio', 5.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mini Pão de Mel" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Mini Pão de Mel</h3>
-                        <p class="text-xs text-gray-500">Delicioso pão de mel recheado. <strong>Pedido mínimo: 25 unidades.</strong></p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 4,50</span>
-                            <button onclick="adicionarItem('Mini Pão de Mel', 4.50)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/6554679/pexels-photo-6554679.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor Tradicional" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor Tradicional</h3>
-                        <p class="text-xs text-gray-500">Maçã caramelizada na calda tradicional, crocante e deliciosa.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 7,00</span>
-                            <button onclick="adicionarItem('Maçã do Amor Tradicional', 7.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/9623537/pexels-photo-9623537.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maçã do Amor de Chocolate" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Maçã do Amor de Chocolate</h3>
-                        <p class="text-xs text-gray-500">Maçã do amor banhada em chocolate ao leite, branco ou colorido.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 10,00</span>
-                            <button onclick="adicionarItem('Maçã do Amor de Chocolate', 10.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/15550435/pexels-photo-15550435.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo no Palito com Tag 3D" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo no Palito com Tag 3D</h3>
-                        <p class="text-xs text-gray-500">Bolo no palito decorado com tag 3D personalizada.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 12,00</span>
-                            <button onclick="adicionarItem('Bolo no Palito com Tag 3D', 12.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/31164722/pexels-photo-31164722.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quadro de Chocolate" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Quadro de Chocolate</h3>
-                        <p class="text-xs text-gray-500">Quadro artístico de chocolate belga.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 10,00</span>
-                            <button onclick="adicionarItem('Quadro de Chocolate', 10.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/29098336/pexels-photo-29098336.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cone Trufado" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Cone Trufado</h3>
-                        <p class="text-xs text-gray-500">Cone crocante recheado com trufa de chocolate nobre.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 8,00</span>
-                            <button onclick="adicionarItem('Cone Trufado', 8.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DOCES TRADICIONAIS (100 UNIDADES) -->
-                <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                    <div class="categoria-cardapio">DOCES TRADICIONAIS (100 UNIDADES)</div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Docinhos Tradicionais" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Docinhos Tradicionais - Forminhas Convencionais</h3>
-                        <p class="text-xs text-gray-500">Brigadeiro, Bicho de pé, Beijinho. 100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 100,00</span>
-                            <button onclick="adicionarItem('Docinhos Tradicionais - Forminhas Convencionais (100un)', 100.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Docinhos Tradicionais Pétalas" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Docinhos Tradicionais - Forminhas de Pétalas</h3>
-                        <p class="text-xs text-gray-500">Brigadeiro, Bicho de pé, Beijinho em forminhas de pétalas. 100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 130,00</span>
-                            <button onclick="adicionarItem('Docinhos Tradicionais - Forminhas de Pétalas (100un)', 130.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/10390453/pexels-photo-10390453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Brigadeiro Gourmet" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Brigadeiro Gourmet</h3>
-                        <p class="text-xs text-gray-500">Sabores: Chocolate, Amendoim, Ninho, Paçoca, Casadinho, Oreo, Confeti, Chocolate branco. 100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 190,00</span>
-                            <button onclick="adicionarItem('Brigadeiro Gourmet (100un)', 190.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Copinho de Chocolate" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Copinho de Chocolate</h3>
-                        <p class="text-xs text-gray-500">100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 220,00</span>
-                            <button onclick="adicionarItem('Copinho de Chocolate (100un)', 220.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bombom sem Recheio" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bombom sem Recheio</h3>
-                        <p class="text-xs text-gray-500">100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 220,00</span>
-                            <button onclick="adicionarItem('Bombom sem Recheio (100un)', 220.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mini Trufa" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Mini Trufa</h3>
-                        <p class="text-xs text-gray-500">100 unidades.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 250,00</span>
-                            <button onclick="adicionarItem('Mini Trufa (100un)', 250.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TABELA DE BOLOS -->
-                <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                    <div class="categoria-cardapio">TABELA DE BOLOS</div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Recheios Tradicionais" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo de Massa Branca ou Chocolate - Recheios Tradicionais</h3>
-                        <p class="text-xs text-gray-500">Mousse de Limão, Mousse de Maracujá, Mousse de Morango, Brigadeiro, Beijinho, Doce de Leite.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 90,00/kg</span>
-                            <button onclick="adicionarItem('Bolo Recheios Tradicionais (kg)', 90.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Recheios Especiais" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo - Recheios Especiais</h3>
-                        <p class="text-xs text-gray-500">Mousse de chocolate ao leite, Mousse de chocolate branco, Abacaxi, Doce de leite com ameixa.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 105,00/kg</span>
-                            <button onclick="adicionarItem('Bolo Recheios Especiais (kg)', 105.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Ninho ou Brigadeiro com Morango" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo - Ninho ou Brigadeiro com Morango</h3>
-                        <p class="text-xs text-gray-500">Recheio especial de ninho ou brigadeiro com morango.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 110,00/kg</span>
-                            <button onclick="adicionarItem('Bolo Ninho ou Brigadeiro com Morango (kg)', 110.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto bg-white rounded-2xl shadow-md border border-[#E91E63]/20 overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Decorado Kit Kat ou Confeti" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Bolo Decorado com Kit Kat ou Confeti</h3>
-                        <p class="text-xs text-gray-500">Bolo decorado com kit kat ou confeti colorido.</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 150,00/kg</span>
-                            <button onclick="adicionarItem('Bolo Decorado com Kit Kat ou Confeti (kg)', 150.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KIT FESTA -->
-                <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                    <div class="categoria-cardapio">KIT FESTA</div>
-                </div>
-
-                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kit Festa 1" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Kit Festa 1</h3>
-                        <p class="text-xs text-gray-500">1 bolo com 1kg + 25 docinhos (brigadeiro ou beijinho) + 5 pirulitos de chocolate.<br><strong>O bolo já vem com topper simples, impressão no papel photo e os pirulitos com as tag's temáticas.</strong></p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 140,00</span>
-                            <button onclick="adicionarItem('Kit Festa 1', 140.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kit Festa 2" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Kit Festa 2</h3>
-                        <p class="text-xs text-gray-500">1 bolo com 2kg + 50 docinhos (brigadeiro, beijinho ou bicho de pé) + 10 pirulitos de chocolate.<br><strong>O bolo já vem com topper simples, impressão no papel photo e os pirulitos com as tag's temáticas.</strong></p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 240,00</span>
-                            <button onclick="adicionarItem('Kit Festa 2', 240.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-produto kit-card rounded-2xl shadow-md overflow-hidden group">
-                    <div class="h-56 bg-gray-100 overflow-hidden">
-                        <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Festa na Caixa" class="img-produto w-full h-full object-cover">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <h3 class="font-elegante text-xl font-bold text-[#2B1B11]">Festa na Caixa</h3>
-                        <p class="text-xs text-gray-500">Caixa temática com painel e balão + Bolo de 800g (massa branca ou chocolate) + 10 docinhos + 6 empadinhas de frango + 1 bebida em lata (refrigerante ou cerveja).</p>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-lg font-bold text-[#E91E63]">R$ 280,00</span>
-                            <button onclick="adicionarItem('Festa na Caixa', 280.00)" class="bg-[#E91E63] text-white text-xs font-bold px-3 py-2 rounded hover:bg-[#C2185B] transition cursor-pointer">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- ───── DOCES UNITÁRIOS ───── -->
+            <div class="categoria-banner">
+                <span><i class="fas fa-candy-cane" style="margin-right:8px"></i>Doces Unitários</span>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-[#E91E63]/30 max-w-xl mx-auto">
-                <h3 class="font-elegante text-2xl font-bold mb-4 text-center text-[#2B1B11]">Resumo da Sua Simulação</h3>
-                <div id="lista-simulacao" class="space-y-2 text-sm divide-y divide-gray-100">
-                    <p class="text-gray-400 text-center py-4">Escolha os produtos acima para iniciar.</p>
+            <div class="produto-grid">
+
+                <!-- Cupcake sem Recheio -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Cupcake sem Recheio">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Cupcake sem Recheio</h3>
+                        <p class="card-desc">Cupcake artesanal com cobertura decorativa de buttercream, linda para enfeitar a sua mesa.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 4,50 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Cupcake sem Recheio', 4.50)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="border-t border-[#E91E63]/30 mt-4 pt-4 flex justify-between items-center font-bold text-lg">
-                    <span>Orçamento Total:</span>
-                    <span id="valor-total-simulacao">R$ 0,00</span>
+
+                <!-- Cupcake com Recheio -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/2135677/pexels-photo-2135677.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Cupcake com Recheio">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Cupcake com Recheio</h3>
+                        <p class="card-desc">Cupcake recheado com brigadeiro ou doce de leite, coberto com frosting delicioso.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 5,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Cupcake com Recheio', 5.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button onclick="enviarParaWhatsApp()" class="w-full bg-[#E91E63] text-white font-bold p-3.5 rounded-xl mt-4 border border-[#E91E63] hover:bg-[#C2185B] transition cursor-pointer">
+
+                <!-- Mini Pão de Mel -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=su6N26P0q%2BddPAB%2BH8XJOlogt06DaNRtFwI5%2FF8OmQlHQ%2Fk5KdrO3o75iC8kQwdEhBY5MYV2It%2F%2FXofMVAqUiQQpchQYvm1Z9z1cQOqgsx7p9syYPuUkBbRFLBoBBS3QJg%3D%3D&u2=wX%2FPzECQx4bPOmXs&width=600"
+                             alt="Mini Pão de Mel"
+                             onerror="this.src='https://images.pexels.com/photos/6880219/pexels-photo-6880219.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Mini Pão de Mel</h3>
+                        <p class="card-desc">Delicioso pão de mel coberto com chocolate, recheado com doce de leite ou brigadeiro. <strong>Pedido mínimo: 25 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 4,50 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Mini Pão de Mel', 4.50)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maçã do Amor Tradicional -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=upY11xEFgJTXA11%2Fc3acR48UpXt0wf75wCSNPSIOzEPT9BA6IpJxX%2BdDCTrDdeu8CyrrzYetXAyHwH%2FiiE0G2%2FPHDxYUbwVXs%2Bh5M9AGr4e5GRa3BmHodt4LBaqV7prXNPp0g6wX7TJCLR%2B9yiJOADcWOgT0ug%3D%3D&u2=st0mtYHEjmdx%2FjKB&width=600"
+                             alt="Maçã do Amor Tradicional"
+                             onerror="this.src='https://images.pexels.com/photos/5765083/pexels-photo-5765083.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Maçã do Amor Tradicional</h3>
+                        <p class="card-desc">Maçã caramelizada na calda vermelha tradicional, crocante e irresistível.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 7,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Maçã do Amor Tradicional', 7.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maçã do Amor de Chocolate -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=H25kCrZSwDKfv7iOiy%2BiTcYwnZuH8JpPwjE1%2F1zfNWeuCcQbjOLpNjpkkUQxMs%2FIm0owWLZ0wzY5vqRwU1jjJMBsjikdHBl0%2BNZMsl6C8e%2B3oaP%2FRWitAvpr8YleTHtludbrLWaV0AdfxAL0YIG6Hg%3D%3D&u2=wmwQVAMqqGiVC3hL&width=600"
+                             alt="Maçã do Amor de Chocolate"
+                             onerror="this.src='https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Maçã do Amor de Chocolate</h3>
+                        <p class="card-desc">Maçã banhada em chocolate ao leite, branco ou colorido. Uma versão sofisticada do clássico.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 10,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Maçã do Amor de Chocolate', 10.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolo no Palito com Tag 3D -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=ZCMRZRRwPuZCBcwE9oT2pUTSMF9v5xWFv%2BjOs8MQeFxj87y8zehrDpBh8X2OUeY8eOit4H1fPYCReg6JYCANCzS4XS5W0QQpb5HyH7MBVu1Y1kUnfl7Eth1gDXHhHjhC%2BVFZZ%2BDsl9bPkF4%3D&u2=vqB6KspPR%2BN2CspF&width=600"
+                             alt="Bolo no Palito com Tag 3D"
+                             onerror="this.src='https://images.pexels.com/photos/2144113/pexels-photo-2144113.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bolo no Palito com Tag 3D</h3>
+                        <p class="card-desc">Cake pop decorado com cobertura de chocolate e tag 3D personalizada com o tema da festa.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 12,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo no Palito com Tag 3D', 12.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quadro de Chocolate -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=OfQVxKp8OQkymmyAzX6zaPHz5M0KgANoYpaa6Fuez6GhJ7ZQ3T4N%2BqVQdBSGIrX6WOPr%2Fsq7o%2FqlFuRjIU1mp54K1AM%3D&u2=D6mkkP0FMtI7I%2Bqo&width=600"
+                             alt="Quadro de Chocolate"
+                             onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Quadro de Chocolate</h3>
+                        <p class="card-desc">Porta-retrato artístico feito em chocolate belga, personalizado com foto ou arte do evento.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 10,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Quadro de Chocolate', 10.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cone Trufado -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=EqpfsFNpkD%2FRyM%2B%2F3l0xCsK3nJqcSlDhlehsSFGnlnaCm6qRMy2UXFiuouchf8l9Lf00h2B%2Fk8eXkfY4%2FTSs7UXb7dI%2BUqhYdkiEUm64VcoieBYSZ9f8OqKZzI0APTtP2cjyUT0BjdqvpcEH&u2=8%2BdFcPPLKS8eiOQF&width=600"
+                             alt="Cone Trufado"
+                             onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Cone Trufado</h3>
+                        <p class="card-desc">Cone crocante de wafer recheado com trufa de chocolate nobre. Elegante e delicioso.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 8,00 <span>/ un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Cone Trufado', 8.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /produto-grid -->
+
+            <!-- ───── DOCES TRADICIONAIS 100 UN ───── -->
+            <div class="categoria-banner">
+                <span><i class="fas fa-heart" style="margin-right:8px"></i>Doces Tradicionais — 100 Unidades</span>
+            </div>
+
+            <div class="produto-grid">
+
+                <!-- Docinhos Forminhas Convencionais -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Docinhos Tradicionais em Forminhas Convencionais">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Docinhos — Forminhas Convencionais</h3>
+                        <p class="card-desc">Brigadeiro, Bicho de Pé e Beijinho nas tradicionais forminhas. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 100,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Docinhos Tradicionais - Forminhas Convencionais (100un)', 100.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Docinhos Forminhas de Pétalas -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=OW4uE%2BdC8nnAfzzIaoRXmENXAvZ65e2BXvGNj3Kq7ZasvT%2ByC0S1cdOvLREDEi731zo9Sx3ssmPkx8uC0Vu907lSdjoVIvpEteDLPTua6fkz2TH4Qzttgu7pNooooV6%2BhQ%3D%3D&u2=DxIDlrkKYsaDvdu0&width=600"
+                             alt="Docinhos Tradicionais em Forminhas de Pétalas"
+                             onerror="this.src='https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Docinhos — Forminhas de Pétalas</h3>
+                        <p class="card-desc">Brigadeiro, Bicho de Pé e Beijinho em charmosas forminhas de pétalas. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 130,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Docinhos Tradicionais - Forminhas de Pétalas (100un)', 130.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brigadeiro Gourmet -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=zW1S%2BUyt9WEmfD3VKnglO0pyKVnLx4SUK7ohqR2ClnMLVgPF%2BsZZvjnU6rDuTMEBfOOzZc2VEhJ4e2Z1dbTVLj3Aj%2FhUU2RlxMnvKA6%2BFpm%2Bh3ZlvbrdUxx3INnO&u2=cvEY5hHFpt6ypqMn&width=600"
+                             alt="Brigadeiro Gourmet"
+                             onerror="this.src='https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Brigadeiro Gourmet</h3>
+                        <p class="card-desc">Sabores: Chocolate, Amendoim, Ninho, Paçoca, Casadinho, Oreo, Confeti, Chocolate Branco. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 190,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Brigadeiro Gourmet (100un)', 190.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copinho de Chocolate -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=ft%2Bs2a1lHNpJ2OrhRd%2Fdyr%2FDduuM01AbslVDkLA8Qt1%2FXrOx1%2BJi3tbAfMCKKinGzfw0qo9sL8aCY8ZZ42ullh5CQRTkcSMB6lGn2PFxe9Pekv96bQhALMHGMCZgNKx6D2rvDjV%2FiVTG%2FbUr7Pc6QHUfwPE%3D&u2=3mLuygORMsC32Z6M&width=600"
+                             alt="Copinho de Chocolate"
+                             onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Copinho de Chocolate</h3>
+                        <p class="card-desc">Mini copinhos feitos em chocolate belga recheados com cremes especiais. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 220,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Copinho de Chocolate (100un)', 220.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bombom sem Recheio -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=AvYN%2FKmMR%2BajFCHXu0PxU4SkCIy%2BaoN2506PkrlJ0CFH048mIeM%2FXgBBMfLlBBzw1DEUwER0fpWbeRVlyFzKaWByMwohcOM83HNtf06Zc9BLEpmCknO2bXQIu6mzgJEw3bySj3r6uYmgM6yea%2FGE6hAg3FAkOYgDQMSl0mmVIZwUy0qlJLfDOBywLtlvybymLqvO%2BLlvi%2BnK4on3y%2FAFdvoJ%2BoYrpMiz3ab8JC9roAPc8SnXlpnnbTClA4060UWOGdsmwmTWyGHMhIhfgW4kfstU3Zeo5MC3Qw%3D%3D&u2=Cvtwzykq%2B6QFkCJg&width=600"
+                             alt="Bombom sem Recheio"
+                             onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bombom sem Recheio</h3>
+                        <p class="card-desc">Bombons artesanais de chocolate liso, ideais para lembrancinhas de festa. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 220,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bombom sem Recheio (100un)', 220.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Trufa -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=mgHh2cdDwm0ryiifldLRy6ZA7Pl2N8FvNwg1bDQ6OewQ60mWp1%2FMZXSN%2FHCi6jaIczKy5SxLWpvKmxCVYugtM%2BrGuPFR8oDDYerVhvTOrOsRcy4S%2FAI%3D&u2=ygU6wSVCSwKXWZXe&width=600"
+                             alt="Mini Trufa"
+                             onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Mini Trufa</h3>
+                        <p class="card-desc">Trufas artesanais feitas à mão com chocolate nobre. Refinadas e irresistíveis. <strong>100 unidades.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 250,00 <span>/ 100un</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Mini Trufa (100un)', 250.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /produto-grid -->
+
+            <!-- ───── TABELA DE BOLOS ───── -->
+            <div class="categoria-banner">
+                <span><i class="fas fa-birthday-cake" style="margin-right:8px"></i>Tabela de Bolos</span>
+            </div>
+
+            <div class="produto-grid">
+
+                <!-- Bolo Recheios Tradicionais -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Bolo com Recheios Tradicionais">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bolo — Recheios Tradicionais</h3>
+                        <p class="card-desc">Massa branca ou chocolate. Recheios: Mousse de Limão, Maracujá, Morango, Brigadeiro, Beijinho, Doce de Leite.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 90,00 <span>/ kg</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo Recheios Tradicionais (kg)', 90.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolo Recheios Especiais -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Bolo com Recheios Especiais">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bolo — Recheios Especiais</h3>
+                        <p class="card-desc">Mousse de Chocolate ao Leite, Mousse de Chocolate Branco, Abacaxi, Doce de Leite com Ameixa.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 105,00 <span>/ kg</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo Recheios Especiais (kg)', 105.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolo Ninho ou Brigadeiro com Morango -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://images.pexels.com/photos/1414234/pexels-photo-1414234.jpeg?auto=compress&cs=tinysrgb&w=600"
+                             alt="Bolo Ninho ou Brigadeiro com Morango">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bolo — Ninho ou Brigadeiro com Morango</h3>
+                        <p class="card-desc">Recheio irresistível de leite ninho cremoso ou brigadeiro com morangos frescos.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 110,00 <span>/ kg</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo Ninho ou Brigadeiro com Morango (kg)', 110.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolo Decorado Kit Kat ou Confeti -->
+                <div class="card-produto">
+                    <div class="card-img-wrap">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=apypyPT1xjfwmYBLKRQ3GkIT2nU0dC%2Fhr7oziFiYvpZ7tYg7GYYtktHB3hQzQ61jZFVAF6QLXQRMpyA90yvIodiDoIPqb25JHhIaJy2UsNs5JgUTiI9tpvMSj1d9VR%2FxE0vDsck%3D&u2=rZSYbjjeqlpVOOn2&width=600"
+                             alt="Bolo Decorado com Kit Kat ou Confeti"
+                             onerror="this.src='https://images.pexels.com/photos/1448735/pexels-photo-1448735.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Bolo Decorado — Kit Kat ou Confeti</h3>
+                        <p class="card-desc">Bolo espetacular decorado com barrinhas de Kit Kat ao redor ou confeti colorido por cima.</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 150,00 <span>/ kg</span></div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo Decorado com Kit Kat ou Confeti (kg)', 150.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /produto-grid -->
+
+            <!-- ───── KIT FESTA ───── -->
+            <div class="categoria-banner">
+                <span><i class="fas fa-gift" style="margin-right:8px"></i>Kit Festa</span>
+            </div>
+
+            <div class="produto-grid">
+
+                <!-- Kit Festa 1 -->
+                <div class="card-produto kit">
+                    <div class="card-img-wrap">
+                        <span class="badge-kit">Kit Especial</span>
+                        <img src="https://sspark.genspark.ai/cfimages?u1=uX5QTxoSVtMua8qSx4ecSHCrJtD%2FsK1eVZYdNdPzrUunSbztFNu1WGlY71P7iN%2FH7ElLNZvUc95wKJeftg2jwnGIuePOlsXper0ru51NSFdWv%2F6HZCJkIXCMoCCFm21XU7emXHjZMHzM0jriQtrrnM4Ne5E%2BvRskck%2BLsamzWudhaDHp0iUvvFx5YunwnPtZzKOawhTwfa4sZVb7Owbgu%2B5UCndK3BNSjPA6%2BsFn3tvqX4GKFc1DmM5J45uKUx7mcuo5aYyTfBxmMu1HfCDgRjlucubjZrlFjk3j&u2=zd9hFcW82jcumPUU&width=600"
+                             alt="Kit Festa 1"
+                             onerror="this.src='https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Kit Festa 1</h3>
+                        <p class="card-desc">1 bolo 1kg + 25 docinhos (brigadeiro ou beijinho) + 5 pirulitos de chocolate.<br><strong>Bolo com topper simples (impressão em papel foto) e pirulitos com tags temáticas.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 140,00</div>
+                            <button class="btn-add" onclick="adicionarItem('Kit Festa 1', 140.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kit Festa 2 -->
+                <div class="card-produto kit">
+                    <div class="card-img-wrap">
+                        <span class="badge-kit">Kit Especial</span>
+                        <img src="https://sspark.genspark.ai/cfimages?u1=wqqUS%2BJdSV1pDpU9EAF1N2WQSNrXJVlSpEgh094pNCqT7Wp1z5RsIeLXT3AjB%2FSnUEoFUpfdj9BZO59MzBBF3iPLp2eaytbdndWnxRox117bkoB8vX2Of5kg0lEZfl0PMWvCwxq0E3vuyX1LETBu%2FMRfRSsR4RMA%3D&u2=84Bq%2BlkMUY2FT65B&width=600"
+                             alt="Kit Festa 2"
+                             onerror="this.src='https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Kit Festa 2</h3>
+                        <p class="card-desc">1 bolo 2kg + 50 docinhos (brigadeiro, beijinho ou bicho de pé) + 10 pirulitos de chocolate.<br><strong>Bolo com topper simples (impressão em papel foto) e pirulitos com tags temáticas.</strong></p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 240,00</div>
+                            <button class="btn-add" onclick="adicionarItem('Kit Festa 2', 240.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Festa na Caixa -->
+                <div class="card-produto kit">
+                    <div class="card-img-wrap">
+                        <span class="badge-kit">Kit Especial</span>
+                        <img src="https://sspark.genspark.ai/cfimages?u1=sv%2FzNHt0j9Y6KmtXCsqTjKMr7ceFCHbOYNdSstMq1S0jhxATDtxl3B%2BULEdUp371fK5USDtF7G0tp5jkWvttqM7A6AB%2B57%2BEcxxAv5OYw6Tx5TaAW1tKs%2FTM6iUh6A%3D%3D&u2=83O3dagwgvPXL5CX&width=600"
+                             alt="Festa na Caixa"
+                             onerror="this.src='https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Festa na Caixa</h3>
+                        <p class="card-desc">Caixa temática com painel e balão + Bolo de 800g + 10 docinhos + 6 empadinhas de frango + 1 bebida em lata (refrigerante ou cerveja).</p>
+                        <div class="card-footer">
+                            <div class="card-price">R$ 280,00</div>
+                            <button class="btn-add" onclick="adicionarItem('Festa na Caixa', 280.00)">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /produto-grid -->
+
+            <!-- SIMULAÇÃO / CARRINHO -->
+            <div class="simulacao-wrap">
+                <div class="simulacao-header">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Resumo do Pedido</h3>
+                </div>
+                <div class="simulacao-body">
+                    <div id="lista-simulacao">
+                        <div class="empty-msg">
+                            <i class="fas fa-shopping-basket"></i>
+                            Escolha os produtos acima para iniciar sua simulação.
+                        </div>
+                    </div>
+                    <div class="simulacao-total">
+                        <span class="label">Orçamento Estimado:</span>
+                        <span class="valor" id="valor-total-simulacao">R$ 0,00</span>
+                    </div>
+                </div>
+                <button class="btn-whatsapp" onclick="enviarParaWhatsApp()">
+                    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:white;flex-shrink:0">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
                     Enviar Pedido pelo WhatsApp
                 </button>
             </div>
+
         </section>
 
-        <!-- PÁGINA 2: GALERIA DE FOTOS -->
-        <section id="pag-galeria" class="secao-pagina space-y-6">
-            <div class="text-center max-w-xl mx-auto">
-                <h2 class="font-elegante text-3xl md:text-4xl font-bold text-[#2B1B11]">Galeria Kika Festas</h2>
-                <p class="text-xs text-gray-500 mt-1">Imagens reais dos nossos eventos, mesas decoradas e produções mais recentes.</p>
+        <!-- ===== PÁGINA 2: GALERIA ===== -->
+        <section id="pag-galeria" class="secao-pagina">
+            <div class="page-title">
+                <h1 class="font-elegante">Galeria Kika Festas</h1>
+                <p class="subtitle">Registros reais dos nossos eventos, mesas decoradas e produções mais recentes</p>
+                <div class="ouro-line"></div>
             </div>
 
-            <div id="grid-galeria-fotos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/31266999/pexels-photo-31266999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Casamento" class="w-full h-56 object-cover rounded-lg">
+            <div class="galeria-grid">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Festa">
+                    <p class="galeria-caption">Bolo de Aniversário</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/29041011/pexels-photo-29041011.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Luxo" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces">
+                    <p class="galeria-caption">Mesa de Docinhos</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/28059323/pexels-photo-28059323.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Branco com Ouro" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/1414234/pexels-photo-1414234.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo com Morango">
+                    <p class="galeria-caption">Bolo com Morango</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/32125114/pexels-photo-32125114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Aniversário Flores" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo Elegante">
+                    <p class="galeria-caption">Bolo Elegante</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/28259731/pexels-photo-28259731.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bolo de Casamento 3 Andares" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcakes">
+                    <p class="galeria-caption">Cupcakes Decorados</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/33158038/pexels-photo-33158038.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mesa de Doces Variados" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://images.pexels.com/photos/2135677/pexels-photo-2135677.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cupcakes Recheados">
+                    <p class="galeria-caption">Cupcakes Recheados</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/32691229/pexels-photo-32691229.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Macarons Coloridos" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=sv%2FzNHt0j9Y6KmtXCsqTjKMr7ceFCHbOYNdSstMq1S0jhxATDtxl3B%2BULEdUp371fK5USDtF7G0tp5jkWvttqM7A6AB%2B57%2BEcxxAv5OYw6Tx5TaAW1tKs%2FTM6iUh6A%3D%3D&u2=83O3dagwgvPXL5CX&width=600" alt="Festa na Caixa"
+                         onerror="this.src='https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Festa na Caixa</p>
                 </div>
-                <div class="galeria-item bg-white p-2 rounded-xl shadow border border-gray-100">
-                    <img src="https://images.pexels.com/photos/15613457/pexels-photo-15613457.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cake Pops Elegantes" class="w-full h-56 object-cover rounded-lg">
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=apypyPT1xjfwmYBLKRQ3GkIT2nU0dC%2Fhr7oziFiYvpZ7tYg7GYYtktHB3hQzQ61jZFVAF6QLXQRMpyA90yvIodiDoIPqb25JHhIaJy2UsNs5JgUTiI9tpvMSj1d9VR%2FxE0vDsck%3D&u2=rZSYbjjeqlpVOOn2&width=600" alt="Bolo Kit Kat"
+                         onerror="this.src='https://images.pexels.com/photos/1448735/pexels-photo-1448735.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Bolo Kit Kat</p>
+                </div>
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=upY11xEFgJTXA11%2Fc3acR48UpXt0wf75wCSNPSIOzEPT9BA6IpJxX%2BdDCTrDdeu8CyrrzYetXAyHwH%2FiiE0G2%2FPHDxYUbwVXs%2Bh5M9AGr4e5GRa3BmHodt4LBaqV7prXNPp0g6wX7TJCLR%2B9yiJOADcWOgT0ug%3D%3D&u2=st0mtYHEjmdx%2FjKB&width=600" alt="Maçã do Amor"
+                         onerror="this.src='https://images.pexels.com/photos/5765083/pexels-photo-5765083.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Maçã do Amor Tradicional</p>
+                </div>
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=zW1S%2BUyt9WEmfD3VKnglO0pyKVnLx4SUK7ohqR2ClnMLVgPF%2BsZZvjnU6rDuTMEBfOOzZc2VEhJ4e2Z1dbTVLj3Aj%2FhUU2RlxMnvKA6%2BFpm%2Bh3ZlvbrdUxx3INnO&u2=cvEY5hHFpt6ypqMn&width=600" alt="Brigadeiro Gourmet"
+                         onerror="this.src='https://images.pexels.com/photos/3776942/pexels-photo-3776942.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Brigadeiro Gourmet</p>
+                </div>
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=EqpfsFNpkD%2FRyM%2B%2F3l0xCsK3nJqcSlDhlehsSFGnlnaCm6qRMy2UXFiuouchf8l9Lf00h2B%2Fk8eXkfY4%2FTSs7UXb7dI%2BUqhYdkiEUm64VcoieBYSZ9f8OqKZzI0APTtP2cjyUT0BjdqvpcEH&u2=8%2BdFcPPLKS8eiOQF&width=600" alt="Cone Trufado"
+                         onerror="this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Cone Trufado</p>
+                </div>
+                <div class="galeria-item">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=su6N26P0q%2BddPAB%2BH8XJOlogt06DaNRtFwI5%2FF8OmQlHQ%2Fk5KdrO3o75iC8kQwdEhBY5MYV2It%2F%2FXofMVAqUiQQpchQYvm1Z9z1cQOqgsx7p9syYPuUkBbRFLBoBBS3QJg%3D%3D&u2=wX%2FPzECQx4bPOmXs&width=600" alt="Mini Pão de Mel"
+                         onerror="this.src='https://images.pexels.com/photos/6880219/pexels-photo-6880219.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                    <p class="galeria-caption">Mini Pão de Mel</p>
                 </div>
             </div>
         </section>
 
-        <!-- PÁGINA 3: DEPOIMENTOS -->
-        <section id="pag-depoimentos" class="secao-pagina space-y-6">
-            <div class="text-center max-w-xl mx-auto">
-                <h2 class="font-elegante text-3xl md:text-4xl font-bold text-[#2B1B11]">Depoimentos e Avaliações</h2>
-                <p class="text-xs text-gray-500 mt-1">A opinião de quem confiou em nossa confeitaria para momentos especiais.</p>
+        <!-- ===== PÁGINA 3: DEPOIMENTOS ===== -->
+        <section id="pag-depoimentos" class="secao-pagina">
+            <div class="page-title">
+                <h1 class="font-elegante">Avaliações & Depoimentos</h1>
+                <p class="subtitle">A opinião de quem confiou na Kika Festas para momentos inesquecíveis</p>
+                <div class="ouro-line"></div>
             </div>
 
-            <div id="lista-depoimentos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"Os doces da Kika Festas foram o destaque da minha festa! Todos amaram os brigadeiros gourmet."</p>
-                    <div class="font-bold text-xs text-[#2B1B11]">— Mariana Silveira</div>
+            <div class="depoimento-grid">
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="depoimento-texto">"Os doces da Kika Festas foram o destaque da minha festa! Todos amaram os brigadeiros gourmet, pediram a receita. Super recomendo!"</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">M</div>
+                        <div>
+                            <div class="depoimento-nome">Mariana Silveira</div>
+                            <div class="depoimento-data">Festa de aniversário — 15 anos</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E91E63]/30 space-y-3 relative">
-                    <span class="text-4xl text-[#E91E63] font-serif absolute top-2 right-4 opacity-40">"</span>
-                    <p class="text-sm italic text-gray-700 pt-2">"O Kit Festa foi perfeito! Bolo lindo e delicioso, e os docinhos estavam maravilhosos."</p>
-                    <div class="font-bold text-xs text-[#2B1B11]">— Carlos Eduardo Guedes</div>
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="depoimento-texto">"O Kit Festa foi perfeito para o aniversário do meu filho! Bolo lindo, delicioso e os docinhos estavam maravilhosos. Atendimento impecável!"</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">C</div>
+                        <div>
+                            <div class="depoimento-nome">Carlos Eduardo Guedes</div>
+                            <div class="depoimento-data">Festa infantil — 5 anos</div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="depoimento-texto">"Pedi as maçãs do amor de chocolate para o meu chá de bebê e foram um sucesso! Lindas, saborosas e entregues no prazo. Parabéns, Kika!"</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">A</div>
+                        <div>
+                            <div class="depoimento-nome">Ana Paula Rodrigues</div>
+                            <div class="depoimento-data">Chá de bebê</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="depoimento-texto">"Mini trufas incríveis! Comprei 100 unidades para um casamento e todos os convidados elogiaram muito. O acabamento é impecável."</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">F</div>
+                        <div>
+                            <div class="depoimento-nome">Fernanda Lopes</div>
+                            <div class="depoimento-data">Casamento</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="depoimento-texto">"Comprei a Festa na Caixa para presentear uma amiga de longe. Ela adorou cada detalhe! A caixa chegou lindamente embalada. Superou minhas expectativas."</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">R</div>
+                        <div>
+                            <div class="depoimento-nome">Roberto Mendes</div>
+                            <div class="depoimento-data">Presente — Festa na Caixa</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="depoimento-card">
+                    <span class="depoimento-aspas">"</span>
+                    <div class="depoimento-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="depoimento-texto">"Bolo decorado com Kit Kat lindo demais! Parou a festa quando trouxemos para a mesa. Além de bonito, o recheio de ninho com morango estava delicioso!"</p>
+                    <div class="depoimento-autor">
+                        <div class="depoimento-avatar">J</div>
+                        <div>
+                            <div class="depoimento-nome">Juliana Costa</div>
+                            <div class="depoimento-data">Festa de aniversário — adulto</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-[#2B1B11] text-white text-center p-4 border-t border-[#C5A880] text-xs opacity-90 mt-auto">
-        <p>&copy; 2026 Kika Festas. Confeitaria Artesanal - Todos os direitos reservados.</p>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-brand">Kika Festas</div>
+        <p>&copy; 2026 Kika Festas — Confeitaria Artesanal. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="https://wa.me/5511965126370" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center group animate-bounce" style="animation-duration: 4s;">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/5511965126370" target="_blank" rel="noopener noreferrer" class="wa-float" title="Falar no WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
     </a>
 
     <script>
@@ -504,21 +1345,25 @@
 
             ['principal', 'galeria', 'depoimentos'].forEach(aba => {
                 const btn = document.getElementById('btn-' + aba);
-                if(btn) {
-                    if(aba === idPagina) {
-                        btn.className = "bg-[#C5A880] text-[#2B1B11] px-4 py-2 rounded transition cursor-pointer hover:opacity-90";
-                    } else {
-                        btn.className = "bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded transition border border-white/10 cursor-pointer";
-                    }
-                }
+                if (!btn) return;
+                btn.classList.toggle('ativo', aba === idPagina);
             });
 
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function adicionarItem(nome, preco) {
             simulacaoCarrinho.push({ nome, preco });
             atualizarHTMLCarrinho();
+
+            // Feedback visual rápido
+            const btns = document.querySelectorAll('.btn-add');
+            btns.forEach(btn => {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(nome.split(' ')[0])) {
+                    btn.style.background = '#16a34a';
+                    setTimeout(() => { btn.style.background = ''; }, 600);
+                }
+            });
         }
 
         function removerItem(index) {
@@ -531,44 +1376,49 @@
             const totalLabel = document.getElementById('valor-total-simulacao');
 
             if (simulacaoCarrinho.length === 0) {
-                caixa.innerHTML = `<p class="text-gray-400 text-center py-4">Escolha os produtos acima para iniciar.</p>`;
-                totalLabel.innerText = "R$ 0,00";
+                caixa.innerHTML = `<div class="empty-msg"><i class="fas fa-shopping-basket"></i>Escolha os produtos acima para iniciar sua simulação.</div>`;
+                totalLabel.textContent = 'R$ 0,00';
                 return;
             }
 
-            let html = ''; 
+            let html = '';
             let total = 0;
             simulacaoCarrinho.forEach((item, idx) => {
                 total += item.preco;
-                html += `<div class="flex justify-between items-center py-2">
-                    <div><span class="font-semibold block">${item.nome}</span><span class="text-xs text-gray-400">R$ ${item.preco.toFixed(2)}</span></div>
-                    <button onclick="removerItem(${idx})" class="text-red-700 text-xs hover:underline cursor-pointer">Remover</button>
+                html += `<div class="item-carrinho">
+                    <div class="item-info">
+                        <span class="item-nome">${item.nome}</span>
+                        <span class="item-preco">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <button class="btn-remover" onclick="removerItem(${idx})">
+                        <i class="fas fa-times"></i> Remover
+                    </button>
                 </div>`;
             });
-            caixa.innerHTML = html; 
-            totalLabel.innerText = `R$ ${total.toFixed(2)}`;
+
+            caixa.innerHTML = html;
+            totalLabel.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
 
         function enviarParaWhatsApp() {
             if (simulacaoCarrinho.length === 0) {
-                alert("Adicione produtos primeiro!");
+                alert('Adicione pelo menos um produto antes de enviar!');
                 return;
             }
 
-            let msg = `Olá Kika Festas, realizei uma simulação pelo site:\n\n`;
-            let total = 0; 
-            simulacaoCarrinho.forEach(i => { 
-                msg += `- ${i.nome}: R$ ${i.preco.toFixed(2)}\n`; 
-                total += i.preco; 
+            let msg = `🎉 *Olá, Kika Festas!*\n\nFiz uma simulação pelo site e gostaria de fazer um pedido:\n\n`;
+            let total = 0;
+            simulacaoCarrinho.forEach(i => {
+                msg += `• ${i.nome}: R$ ${i.preco.toFixed(2).replace('.', ',')}\n`;
+                total += i.preco;
             });
-            msg += `\n*Total Estimado: R$ ${total.toFixed(2)}*`;
+            msg += `\n💰 *Total Estimado: R$ ${total.toFixed(2).replace('.', ',')}*\n\nPoderia me passar mais informações?`;
             window.open(`https://wa.me/5511965126370?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // Inicializa a página
-        window.onload = function() {
-            mudarPagina('principal');
-        };
+        // Inicializa
+        window.onload = () => mudarPagina('principal');
     </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
